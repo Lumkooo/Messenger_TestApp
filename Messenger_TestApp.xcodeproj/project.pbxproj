@@ -9,12 +9,34 @@
 /* Begin PBXBuildFile section */
 		CEC2854626197EF7007472AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2854526197EF7007472AB /* AppDelegate.swift */; };
 		CEC2854826197EF7007472AB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2854726197EF7007472AB /* SceneDelegate.swift */; };
-		CEC2854A26197EF7007472AB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2854926197EF7007472AB /* ViewController.swift */; };
 		CEC2855026197EF7007472AB /* Messenger_TestApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CEC2854E26197EF7007472AB /* Messenger_TestApp.xcdatamodeld */; };
 		CEC2855226197EF9007472AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEC2855126197EF9007472AB /* Assets.xcassets */; };
 		CEC2855526197EF9007472AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEC2855326197EF9007472AB /* LaunchScreen.storyboard */; };
 		CEC2856026197EF9007472AB /* Messenger_TestAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2855F26197EF9007472AB /* Messenger_TestAppTests.swift */; };
 		CEC2856B26197EF9007472AB /* Messenger_TestAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2856A26197EF9007472AB /* Messenger_TestAppUITests.swift */; };
+		CEC2859126198041007472AB /* ChatListVCAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2858D26198041007472AB /* ChatListVCAssembly.swift */; };
+		CEC2859226198041007472AB /* ChatVCAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2858E26198041007472AB /* ChatVCAssembly.swift */; };
+		CEC2859326198041007472AB /* NavigationControllerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2858F26198041007472AB /* NavigationControllerAssembly.swift */; };
+		CEC2859426198041007472AB /* StartVCAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2859026198041007472AB /* StartVCAssembly.swift */; };
+		CEC285A42619805A007472AB /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC285A22619805A007472AB /* Chat.swift */; };
+		CEC285A52619805A007472AB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC285A32619805A007472AB /* Message.swift */; };
+		CEC285AC26198065007472AB /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC285AA26198065007472AB /* UIColorExtension.swift */; };
+		CEC285AD26198065007472AB /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC285AB26198065007472AB /* AppConstants.swift */; };
+		CEC285C72619806F007472AB /* ChatListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC285B32619806F007472AB /* ChatListInteractor.swift */; };
+		CEC285C82619806F007472AB /* ChatListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC285B42619806F007472AB /* ChatListPresenter.swift */; };
+		CEC285C92619806F007472AB /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC285B52619806F007472AB /* ChatListViewController.swift */; };
+		CEC285CA2619806F007472AB /* ChatListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC285B62619806F007472AB /* ChatListRouter.swift */; };
+		CEC285CB2619806F007472AB /* ChatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC285B82619806F007472AB /* ChatListView.swift */; };
+		CEC285CC2619806F007472AB /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC285BA2619806F007472AB /* StartViewController.swift */; };
+		CEC285CD2619806F007472AB /* StartInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC285BB2619806F007472AB /* StartInteractor.swift */; };
+		CEC285CE2619806F007472AB /* StartPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC285BC2619806F007472AB /* StartPresenter.swift */; };
+		CEC285CF2619806F007472AB /* StartRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC285BD2619806F007472AB /* StartRouter.swift */; };
+		CEC285D02619806F007472AB /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC285BF2619806F007472AB /* StartView.swift */; };
+		CEC285D12619806F007472AB /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC285C12619806F007472AB /* ChatViewController.swift */; };
+		CEC285D22619806F007472AB /* ChatRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC285C22619806F007472AB /* ChatRouter.swift */; };
+		CEC285D32619806F007472AB /* ChatInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC285C32619806F007472AB /* ChatInteractor.swift */; };
+		CEC285D42619806F007472AB /* ChatPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC285C42619806F007472AB /* ChatPresenter.swift */; };
+		CEC285D52619806F007472AB /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC285C62619806F007472AB /* ChatView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +60,6 @@
 		CEC2854226197EF7007472AB /* Messenger_TestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger_TestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEC2854526197EF7007472AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEC2854726197EF7007472AB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		CEC2854926197EF7007472AB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CEC2854F26197EF7007472AB /* Messenger_TestApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Messenger_TestApp.xcdatamodel; sourceTree = "<group>"; };
 		CEC2855126197EF9007472AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEC2855426197EF9007472AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +70,29 @@
 		CEC2856626197EF9007472AB /* Messenger_TestAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Messenger_TestAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEC2856A26197EF9007472AB /* Messenger_TestAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messenger_TestAppUITests.swift; sourceTree = "<group>"; };
 		CEC2856C26197EF9007472AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEC2858D26198041007472AB /* ChatListVCAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatListVCAssembly.swift; sourceTree = "<group>"; };
+		CEC2858E26198041007472AB /* ChatVCAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatVCAssembly.swift; sourceTree = "<group>"; };
+		CEC2858F26198041007472AB /* NavigationControllerAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationControllerAssembly.swift; sourceTree = "<group>"; };
+		CEC2859026198041007472AB /* StartVCAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartVCAssembly.swift; sourceTree = "<group>"; };
+		CEC285A22619805A007472AB /* Chat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
+		CEC285A32619805A007472AB /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		CEC285AA26198065007472AB /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		CEC285AB26198065007472AB /* AppConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		CEC285B32619806F007472AB /* ChatListInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatListInteractor.swift; sourceTree = "<group>"; };
+		CEC285B42619806F007472AB /* ChatListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatListPresenter.swift; sourceTree = "<group>"; };
+		CEC285B52619806F007472AB /* ChatListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
+		CEC285B62619806F007472AB /* ChatListRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatListRouter.swift; sourceTree = "<group>"; };
+		CEC285B82619806F007472AB /* ChatListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatListView.swift; sourceTree = "<group>"; };
+		CEC285BA2619806F007472AB /* StartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		CEC285BB2619806F007472AB /* StartInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartInteractor.swift; sourceTree = "<group>"; };
+		CEC285BC2619806F007472AB /* StartPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartPresenter.swift; sourceTree = "<group>"; };
+		CEC285BD2619806F007472AB /* StartRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartRouter.swift; sourceTree = "<group>"; };
+		CEC285BF2619806F007472AB /* StartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		CEC285C12619806F007472AB /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		CEC285C22619806F007472AB /* ChatRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRouter.swift; sourceTree = "<group>"; };
+		CEC285C32619806F007472AB /* ChatInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatInteractor.swift; sourceTree = "<group>"; };
+		CEC285C42619806F007472AB /* ChatPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatPresenter.swift; sourceTree = "<group>"; };
+		CEC285C62619806F007472AB /* ChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,8 +143,11 @@
 		CEC2854426197EF7007472AB /* Messenger_TestApp */ = {
 			isa = PBXGroup;
 			children = (
+				CEC2858C26198038007472AB /* Assembly */,
 				CEC2857E26197F26007472AB /* App */,
-				CEC2854926197EF7007472AB /* ViewController.swift */,
+				CEC285A926198065007472AB /* Model */,
+				CEC285A12619805A007472AB /* Entities */,
+				CEC285B12619806F007472AB /* Screens */,
 				CEC2858226197F2E007472AB /* Resources */,
 				CEC2858326197F40007472AB /* CoreData */,
 			);
@@ -150,6 +197,105 @@
 				CEC2854E26197EF7007472AB /* Messenger_TestApp.xcdatamodeld */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		CEC2858C26198038007472AB /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				CEC2858D26198041007472AB /* ChatListVCAssembly.swift */,
+				CEC2858E26198041007472AB /* ChatVCAssembly.swift */,
+				CEC2858F26198041007472AB /* NavigationControllerAssembly.swift */,
+				CEC2859026198041007472AB /* StartVCAssembly.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		CEC285A12619805A007472AB /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				CEC285A22619805A007472AB /* Chat.swift */,
+				CEC285A32619805A007472AB /* Message.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		CEC285A926198065007472AB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CEC285AA26198065007472AB /* UIColorExtension.swift */,
+				CEC285AB26198065007472AB /* AppConstants.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CEC285B12619806F007472AB /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				CEC285B92619806F007472AB /* Start Screen */,
+				CEC285B22619806F007472AB /* ChatList Screen */,
+				CEC285C02619806F007472AB /* ChatScreen */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		CEC285B22619806F007472AB /* ChatList Screen */ = {
+			isa = PBXGroup;
+			children = (
+				CEC285B72619806F007472AB /* Views */,
+				CEC285B32619806F007472AB /* ChatListInteractor.swift */,
+				CEC285B42619806F007472AB /* ChatListPresenter.swift */,
+				CEC285B52619806F007472AB /* ChatListViewController.swift */,
+				CEC285B62619806F007472AB /* ChatListRouter.swift */,
+			);
+			path = "ChatList Screen";
+			sourceTree = "<group>";
+		};
+		CEC285B72619806F007472AB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CEC285B82619806F007472AB /* ChatListView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CEC285B92619806F007472AB /* Start Screen */ = {
+			isa = PBXGroup;
+			children = (
+				CEC285BE2619806F007472AB /* Views */,
+				CEC285BA2619806F007472AB /* StartViewController.swift */,
+				CEC285BB2619806F007472AB /* StartInteractor.swift */,
+				CEC285BC2619806F007472AB /* StartPresenter.swift */,
+				CEC285BD2619806F007472AB /* StartRouter.swift */,
+			);
+			path = "Start Screen";
+			sourceTree = "<group>";
+		};
+		CEC285BE2619806F007472AB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CEC285BF2619806F007472AB /* StartView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CEC285C02619806F007472AB /* ChatScreen */ = {
+			isa = PBXGroup;
+			children = (
+				CEC285C52619806F007472AB /* Views */,
+				CEC285C12619806F007472AB /* ChatViewController.swift */,
+				CEC285C22619806F007472AB /* ChatRouter.swift */,
+				CEC285C32619806F007472AB /* ChatInteractor.swift */,
+				CEC285C42619806F007472AB /* ChatPresenter.swift */,
+			);
+			path = ChatScreen;
+			sourceTree = "<group>";
+		};
+		CEC285C52619806F007472AB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CEC285C62619806F007472AB /* ChatView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -281,10 +427,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEC2854A26197EF7007472AB /* ViewController.swift in Sources */,
 				CEC2854626197EF7007472AB /* AppDelegate.swift in Sources */,
+				CEC285CE2619806F007472AB /* StartPresenter.swift in Sources */,
+				CEC285D12619806F007472AB /* ChatViewController.swift in Sources */,
+				CEC2859226198041007472AB /* ChatVCAssembly.swift in Sources */,
+				CEC285C82619806F007472AB /* ChatListPresenter.swift in Sources */,
+				CEC285C72619806F007472AB /* ChatListInteractor.swift in Sources */,
+				CEC285D52619806F007472AB /* ChatView.swift in Sources */,
+				CEC285CB2619806F007472AB /* ChatListView.swift in Sources */,
+				CEC285D02619806F007472AB /* StartView.swift in Sources */,
+				CEC285C92619806F007472AB /* ChatListViewController.swift in Sources */,
+				CEC285D22619806F007472AB /* ChatRouter.swift in Sources */,
+				CEC285CA2619806F007472AB /* ChatListRouter.swift in Sources */,
 				CEC2854826197EF7007472AB /* SceneDelegate.swift in Sources */,
+				CEC285AD26198065007472AB /* AppConstants.swift in Sources */,
+				CEC285A52619805A007472AB /* Message.swift in Sources */,
+				CEC285CC2619806F007472AB /* StartViewController.swift in Sources */,
+				CEC2859126198041007472AB /* ChatListVCAssembly.swift in Sources */,
+				CEC2859326198041007472AB /* NavigationControllerAssembly.swift in Sources */,
+				CEC285CD2619806F007472AB /* StartInteractor.swift in Sources */,
+				CEC285D32619806F007472AB /* ChatInteractor.swift in Sources */,
+				CEC285CF2619806F007472AB /* StartRouter.swift in Sources */,
+				CEC285A42619805A007472AB /* Chat.swift in Sources */,
+				CEC285AC26198065007472AB /* UIColorExtension.swift in Sources */,
 				CEC2855026197EF7007472AB /* Messenger_TestApp.xcdatamodeld in Sources */,
+				CEC285D42619806F007472AB /* ChatPresenter.swift in Sources */,
+				CEC2859426198041007472AB /* StartVCAssembly.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
