@@ -13,6 +13,7 @@ enum AppConstants {
 
     enum Images {
         static let startImage = UIImage(named: "StartScreen")
+        static let iconSend = UIImage(named: "iconSend")
     }
 
     // MARK: - Constraints

@@ -37,6 +37,8 @@
 		CEC285D32619806F007472AB /* ChatInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC285C32619806F007472AB /* ChatInteractor.swift */; };
 		CEC285D42619806F007472AB /* ChatPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC285C42619806F007472AB /* ChatPresenter.swift */; };
 		CEC285D52619806F007472AB /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC285C62619806F007472AB /* ChatView.swift */; };
+		CEC285ED261982A9007472AB /* ChatViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC285EC261982A9007472AB /* ChatViewCollectionViewCell.swift */; };
+		CEC285F426199E79007472AB /* ChatCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC285F326199E78007472AB /* ChatCollectionViewDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +95,8 @@
 		CEC285C32619806F007472AB /* ChatInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatInteractor.swift; sourceTree = "<group>"; };
 		CEC285C42619806F007472AB /* ChatPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatPresenter.swift; sourceTree = "<group>"; };
 		CEC285C62619806F007472AB /* ChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		CEC285EC261982A9007472AB /* ChatViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewCollectionViewCell.swift; sourceTree = "<group>"; };
+		CEC285F326199E78007472AB /* ChatCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCollectionViewDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +228,7 @@
 			children = (
 				CEC285AA26198065007472AB /* UIColorExtension.swift */,
 				CEC285AB26198065007472AB /* AppConstants.swift */,
+				CEC285FD26199E93007472AB /* ChatView collectionView Model */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -283,9 +288,9 @@
 			children = (
 				CEC285C52619806F007472AB /* Views */,
 				CEC285C12619806F007472AB /* ChatViewController.swift */,
-				CEC285C22619806F007472AB /* ChatRouter.swift */,
-				CEC285C32619806F007472AB /* ChatInteractor.swift */,
 				CEC285C42619806F007472AB /* ChatPresenter.swift */,
+				CEC285C32619806F007472AB /* ChatInteractor.swift */,
+				CEC285C22619806F007472AB /* ChatRouter.swift */,
 			);
 			path = ChatScreen;
 			sourceTree = "<group>";
@@ -294,8 +299,17 @@
 			isa = PBXGroup;
 			children = (
 				CEC285C62619806F007472AB /* ChatView.swift */,
+				CEC285EC261982A9007472AB /* ChatViewCollectionViewCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		CEC285FD26199E93007472AB /* ChatView collectionView Model */ = {
+			isa = PBXGroup;
+			children = (
+				CEC285F326199E78007472AB /* ChatCollectionViewDataSource.swift */,
+			);
+			path = "ChatView collectionView Model";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -429,6 +443,7 @@
 			files = (
 				CEC2854626197EF7007472AB /* AppDelegate.swift in Sources */,
 				CEC285CE2619806F007472AB /* StartPresenter.swift in Sources */,
+				CEC285ED261982A9007472AB /* ChatViewCollectionViewCell.swift in Sources */,
 				CEC285D12619806F007472AB /* ChatViewController.swift in Sources */,
 				CEC2859226198041007472AB /* ChatVCAssembly.swift in Sources */,
 				CEC285C82619806F007472AB /* ChatListPresenter.swift in Sources */,
@@ -441,6 +456,7 @@
 				CEC285CA2619806F007472AB /* ChatListRouter.swift in Sources */,
 				CEC2854826197EF7007472AB /* SceneDelegate.swift in Sources */,
 				CEC285AD26198065007472AB /* AppConstants.swift in Sources */,
+				CEC285F426199E79007472AB /* ChatCollectionViewDataSource.swift in Sources */,
 				CEC285A52619805A007472AB /* Message.swift in Sources */,
 				CEC285CC2619806F007472AB /* StartViewController.swift in Sources */,
 				CEC2859126198041007472AB /* ChatListVCAssembly.swift in Sources */,

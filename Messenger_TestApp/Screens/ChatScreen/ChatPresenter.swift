@@ -37,5 +37,7 @@ extension ChatPresenter: IChatPresenter {
 }
 
 extension ChatPresenter: IChatInteractorOuter {
-
+    func showMessages(_ messages: [Message]) {
+        self.ui?.showMessages(messages)
+    }
 }
