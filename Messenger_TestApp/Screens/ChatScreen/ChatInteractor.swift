@@ -76,8 +76,7 @@ extension ChatInteractor: IChatInteractor {
                               time: time,
                               isOutgoing: isOutgoing)
         self.chat.messages.append(message)
-//        self.presenter?.appendMessage(message, atRow: self.chat.messages.count)
-        self.presenter?.showMessages(self.chat.messages)
+        self.presenter?.appendMessage(message, atRow: self.chat.messages.count)
     }
 }
 

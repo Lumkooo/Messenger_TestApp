@@ -40,6 +40,6 @@ final class ChatViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        self.presenter.viewDidAppear()
+        self.presenter.viewDidAppear()
     }
 }

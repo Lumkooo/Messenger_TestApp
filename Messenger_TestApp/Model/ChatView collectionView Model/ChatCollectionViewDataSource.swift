@@ -24,7 +24,7 @@ final class ChatCollectionViewDataSource: NSObject {
     }
 }
 
-// MARK: UICollectionViewDataSource
+// MARK: - UICollectionViewDataSource
 
 extension ChatCollectionViewDataSource: UICollectionViewDataSource {
 
@@ -35,8 +35,10 @@ extension ChatCollectionViewDataSource: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! MyCell
-        cell.label.text = self.messages[indexPath.item].text
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChatViewCollectionViewCell.reuseIdentifier,
+                                                      for: indexPath) as! ChatViewCollectionViewCell
+        cell.setupCell(message: messages[indexPath.item])
         return cell
     }
 }
+

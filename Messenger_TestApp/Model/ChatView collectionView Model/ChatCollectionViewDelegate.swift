@@ -7,29 +7,36 @@
 
 import UIKit
 
-final class ChatCollectionViewDelegate: NSObject {
-
-}
-
-// MARK: - UICollectionViewDelegate
-
-extension ChatCollectionViewDelegate: UICollectionViewDelegate {
-
-}
-
-// MARK: - UICollectionViewDelegateFlowLayout
-
-extension ChatCollectionViewDelegate: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let sectionInset = (collectionViewLayout as! UICollectionViewFlowLayout).sectionInset
-        let referenceHeight: CGFloat = 0
-        let referenceWidth: CGFloat = collectionView.safeAreaLayoutGuide.layoutFrame.width
-            - sectionInset.left
-            - sectionInset.right
-            - collectionView.contentInset.left
-            - collectionView.contentInset.right
-        return CGSize(width: referenceWidth, height: referenceHeight)
-    }
-}
+//final class ChatCollectionViewDelegate: NSObject {
+//
+//}
+//
+//// MARK: - UICollectionViewDelegate
+//
+//extension SmartHomeItemCollectionViewDelegate: UICollectionViewDelegate {
+//    func collectionView(_ collectionView: UICollectionView,
+//                        didSelectItemAt indexPath: IndexPath) {
+//        self.delegate?.didSelectItemAt(indexPath: indexPath)
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView,
+//                        contextMenuConfigurationForItemAt indexPath: IndexPath,
+//                        point: CGPoint) -> UIContextMenuConfiguration? {
+//        return UIContextMenuConfiguration(identifier: indexPath as NSIndexPath, previewProvider: nil) { _ in
+//
+//            let addToLiked = UIAction(title: "Добавить в избранное",
+//                                image: AppConstants.Images.heartFill) { action in
+//                // TODO: - Добавление в избранные
+//            }
+//
+//            let goToDevice = UIAction(title: "Перейти к устройству",
+//                                image: AppConstants.Images.arrowRight) { action in
+//                // TODO: - Переход к девайсу
+//                self.delegate?.goToDevice(atIndexPath: indexPath)
+//            }
+//
+//
+//            return UIMenu(title: "", children: [goToDevice, addToLiked])
+//        }
+//    }
+//}
