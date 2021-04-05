@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE2293BB261AA968005ECDBB /* ChatCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2293BA261AA968005ECDBB /* ChatCollectionViewDelegate.swift */; };
 		CEC2854626197EF7007472AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2854526197EF7007472AB /* AppDelegate.swift */; };
 		CEC2854826197EF7007472AB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2854726197EF7007472AB /* SceneDelegate.swift */; };
 		CEC2855026197EF7007472AB /* Messenger_TestApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CEC2854E26197EF7007472AB /* Messenger_TestApp.xcdatamodeld */; };
@@ -59,6 +60,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE2293BA261AA968005ECDBB /* ChatCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		CEC2854226197EF7007472AB /* Messenger_TestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger_TestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEC2854526197EF7007472AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEC2854726197EF7007472AB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 			isa = PBXGroup;
 			children = (
 				CEC285F326199E78007472AB /* ChatCollectionViewDataSource.swift */,
+				CE2293BA261AA968005ECDBB /* ChatCollectionViewDelegate.swift */,
 			);
 			path = "ChatView collectionView Model";
 			sourceTree = "<group>";
@@ -453,6 +456,7 @@
 				CEC285D02619806F007472AB /* StartView.swift in Sources */,
 				CEC285C92619806F007472AB /* ChatListViewController.swift in Sources */,
 				CEC285D22619806F007472AB /* ChatRouter.swift in Sources */,
+				CE2293BB261AA968005ECDBB /* ChatCollectionViewDelegate.swift in Sources */,
 				CEC285CA2619806F007472AB /* ChatListRouter.swift in Sources */,
 				CEC2854826197EF7007472AB /* SceneDelegate.swift in Sources */,
 				CEC285AD26198065007472AB /* AppConstants.swift in Sources */,

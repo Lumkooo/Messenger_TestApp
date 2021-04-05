@@ -37,4 +37,9 @@ final class ChatViewController: UIViewController {
         super.viewDidLoad()
         self.presenter.viewDidLoad(ui: self.ui)
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+//        self.presenter.viewDidAppear()
+    }
 }

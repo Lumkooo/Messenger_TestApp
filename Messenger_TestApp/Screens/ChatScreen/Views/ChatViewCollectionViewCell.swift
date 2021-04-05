@@ -30,27 +30,58 @@ final class ChatViewCollectionViewCell: UICollectionViewCell {
 
         static let outgoingMessageBackgroundColor = UIColor(rgb: 0xD9D8D8)
         static let outgoingMessageCornerRadius: CGFloat = 4
+        static let outgoingMessageShadowColor = UIColor(rgb: 0x000000).cgColor
+        static let outgoingMessageShadowOpacity: Float = 0.5
+        static let outgoingMessageShadowOffset: CGSize = CGSize(width: 0, height: 2)
+        static let outgoingMessageShadowRadius: CGFloat = 4
+        static let outgoingMessageTextColor = UIColor(rgb: 0xFFFFFF)
+        static let outgoingMessageFont = UIFont.italicSystemFont(ofSize: 15)
+
+//        Элемент чата входищий (Слева):
+//            Заливка: FFFFFF
+//            Закругление: 4
+//            Тень:
+//                Цвет: 000000
+//                Прозрачность: 0.5
+//                Отступ: 0,2
+//                Радиус: 4
+//            Текст сообщения:
+//                Цвет: 000000
+//                Шрифт: Системный 15
+//            Время:
+//                Цвет: 000000
+//                Шрифт: Системный 11
+
+        static let incomingMessageBackgroundColor = UIColor(rgb: 0xFFFFFF)
+        static let incomingMessageCornerRadius: CGFloat = 4
+        static let incomingMessageShadowColor = UIColor(rgb: 0x000000).cgColor
+        static let incomingMessageShadowOpacity: Float = 0.5
+        static let incomingMessageShadowOffset: CGSize = CGSize(width: 0, height: 2)
+        static let incomingMessageShadowRadius: CGFloat = 4
+        static let incomingMessageTextColor = UIColor(rgb: 0x000000)
+        static let incomingMessageFont = UIFont.systemFont(ofSize: 15)
+
+        static let messageTimeTextColor = UIColor(rgb: 0x000000)
+        static let messageTimeFont = UIFont.systemFont(ofSize: 11)
     }
 
     // MARK: - Views
 
     private lazy var messageContainerView: UIView = {
         let myView = UIView()
-        myView.backgroundColor = .blue
         return myView
     }()
 
     private lazy var messageLabel: UILabel = {
         let myLabel = UILabel()
         myLabel.numberOfLines = 0
-        myLabel.backgroundColor = .red
-        myLabel.lineBreakMode = .byWordWrapping
         return myLabel
     }()
 
     private lazy var timeLabel: UILabel = {
         let myLabel = UILabel()
-        myLabel.backgroundColor = .green
+        myLabel.textColor = Constants.messageTimeTextColor
+        myLabel.font = Constants.messageTimeFont
         return myLabel
     }()
 
@@ -86,6 +117,7 @@ final class ChatViewCollectionViewCell: UICollectionViewCell {
             equalTo: self.messageContainerView.bottomAnchor)
     ]
 
+    var hello: String = ""
 
 
     // MARK: - Init
@@ -109,7 +141,6 @@ final class ChatViewCollectionViewCell: UICollectionViewCell {
         }
         self.messageLabel.text = message.text
         self.timeLabel.text = message.time
-        print("HELLO!", message.text)
     }
 
     // MARK: - preferredLayoutAttributesFitting
@@ -127,7 +158,6 @@ private extension ChatViewCollectionViewCell {
     func setupMutualElements() {
         self.contentView.addSubview(self.messageContainerView)
         self.messageContainerView.translatesAutoresizingMaskIntoConstraints = false
-
         NSLayoutConstraint.activate([
             self.messageContainerView.topAnchor.constraint(
                 equalTo: self.contentView.topAnchor,
@@ -139,7 +169,6 @@ private extension ChatViewCollectionViewCell {
                 greaterThanOrEqualToConstant: 0)
         ])
         self.setupMessageLabel()
-
         self.contentView.addSubview(self.timeLabel)
         self.timeLabel.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -147,6 +176,18 @@ private extension ChatViewCollectionViewCell {
     func setupOutgoingElements() {
         self.setupOutgoingMessageView()
         self.setupOutgoingMessageTime()
+        self.setupOutgoingAppearence()
+    }
+
+    func setupOutgoingAppearence() {
+        self.messageContainerView.backgroundColor = Constants.outgoingMessageBackgroundColor
+        self.messageContainerView.layer.cornerRadius = Constants.outgoingMessageCornerRadius
+        self.messageContainerView.layer.shadowColor = Constants.outgoingMessageShadowColor
+        self.messageContainerView.layer.shadowOpacity = Constants.outgoingMessageShadowOpacity
+        self.messageContainerView.layer.shadowOffset = Constants.outgoingMessageShadowOffset
+        self.messageContainerView.layer.shadowRadius = Constants.outgoingMessageShadowRadius
+        self.messageLabel.textColor = Constants.outgoingMessageTextColor
+        self.messageLabel.font = Constants.outgoingMessageFont
     }
 
     func setupOutgoingMessageView() {
@@ -162,6 +203,18 @@ private extension ChatViewCollectionViewCell {
     func setupIncomingElements() {
         self.setupIncomingMessageView()
         self.setupIncomingMessageTime()
+        self.setupIncomingAppearence()
+    }
+
+    func setupIncomingAppearence() {
+        self.messageContainerView.backgroundColor = Constants.incomingMessageBackgroundColor
+        self.messageContainerView.layer.cornerRadius = Constants.incomingMessageCornerRadius
+        self.messageContainerView.layer.shadowColor = Constants.incomingMessageShadowColor
+        self.messageContainerView.layer.shadowOpacity = Constants.incomingMessageShadowOpacity
+        self.messageContainerView.layer.shadowOffset = Constants.incomingMessageShadowOffset
+        self.messageContainerView.layer.shadowRadius = Constants.incomingMessageShadowRadius
+        self.messageLabel.textColor = Constants.incomingMessageTextColor
+        self.messageLabel.font = Constants.incomingMessageFont
     }
 
     func setupIncomingMessageView() {

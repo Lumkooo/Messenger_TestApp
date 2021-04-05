@@ -8,7 +8,11 @@
 import UIKit
 
 protocol IChatView: AnyObject {
+    var sendButtonTapedWith: ((String)-> Void)? { get set }
+
     func showMessages(_ messages: [Message])
+    func scrollCollectionView(toRow row: Int)
+    func appendMessage(_ message: Message, atRow row: Int)
 }
 
 final class ChatView: UIView {
@@ -17,37 +21,54 @@ final class ChatView: UIView {
 
     private enum Constants {
 
+        //        Заливка: F4F3F3
+        static let backgroundColor = UIColor(rgb: 0xF4F3F3)
+
         static let messageTextViewAnimationDuration: Double = 0.3
         static let messageTextViewPlaceholder = "Введите сообщение..."
-//        Область ввода сообщения:
-//            Заливка: E7E7E7
-//            Скругление: 5
-//            Текст:
-//                Цвет: 000000
-//                Шрифт: Системный 17
-//                Заглушка:
-//                    Цвет: 000000
-//                    Прозрачность: 0.3
-//                    Шрифт: Системный жирный 17
 
+//        Тулбар ввода сообщения:
+//            Заливка: FFFFFF
+//            Тень:
+//                Цвет: 000000
+//                Прозрачность: 0.5
+//                Отступ: 0,2
+//                Радиус: 4
+//            Цвет кнопки отправить: E11C28
+//            Область ввода сообщения:
+//                Заливка: E7E7E7
+//                Скругление: 5
+//                Текст:
+//                    Цвет: 000000
+//                    Шрифт: Системный 17
+//                    Заглушка:
+//                        Цвет: 000000
+//                        Прозрачность: 0.3
+//                        Шрифт: Системный жирный 17
+
+        static let messageToolbarBackgroundColor = UIColor(rgb: 0xFFFFFF)
+        static let messageToolbarShadowColor = UIColor(rgb: 0x000000).cgColor
+        static let messageToolbarShadowOpacity: Float = 0.5
+        static let messageToolbarShadowOffset: CGSize = CGSize(width: 0, height: 2)
+        static let messageToolbarShadowRadius: CGFloat = 4
+        static let sendButtonColor = UIColor(rgb: 0xE11C28)
         static let messageTextViewBackgroundColor = UIColor(rgb: 0xE7E7E7)
         static let messageTextViewCornerRadius: CGFloat = 5
         static let messageTextViewTextColor = UIColor(rgb: 0x000000)
         static let messageTextViewOpacity: Float = 1
         static let messageTextViewFont = UIFont.systemFont(ofSize: 17)
-
         static let messageTextViewDummyOpacity: Float = 0.3
         static let messageTextViewDummyFont = UIFont.systemFont(ofSize: 17, weight: .bold)
     }
     // MARK: - Views
 
-    private lazy var collectionView: UICollectionView = {
+    private let collectionView: UICollectionView = {
         let myCollectionView:UICollectionView = UICollectionView(
             frame: CGRect.zero,
             collectionViewLayout: UICollectionViewFlowLayout.init())
         myCollectionView.register(ChatViewCollectionViewCell.self,
                                   forCellWithReuseIdentifier: ChatViewCollectionViewCell.reuseIdentifier)
-        myCollectionView.backgroundColor = .systemBackground
+        myCollectionView.backgroundColor = .clear
         return myCollectionView
     }()
 
@@ -55,7 +76,6 @@ final class ChatView: UIView {
         let myTextView = UITextView()
         myTextView.delegate = self
         myTextView.text = Constants.messageTextViewPlaceholder
-        myTextView.backgroundColor = .systemGroupedBackground
         myTextView.backgroundColor = Constants.messageTextViewBackgroundColor
         myTextView.layer.cornerRadius = Constants.messageTextViewCornerRadius
         myTextView.textColor = Constants.messageTextViewTextColor
@@ -69,8 +89,20 @@ final class ChatView: UIView {
         myButton.addTarget(self,
                            action: #selector(self.sendButtonTapped(gesture:)),
                            for: .touchUpInside)
-        myButton.setImage(AppConstants.Images.iconSend, for: .normal)
+        let tintedImage = AppConstants.Images.iconSend?.withRenderingMode(.alwaysTemplate)
+        myButton.setImage(tintedImage, for: .normal)
+        myButton.tintColor = Constants.sendButtonColor
         return myButton
+    }()
+
+    private lazy var messageToolbarView: UIView = {
+        let myView = UIView()
+        myView.backgroundColor = Constants.messageToolbarBackgroundColor
+        myView.layer.shadowColor = Constants.messageToolbarShadowColor
+        myView.layer.shadowOpacity = Constants.messageToolbarShadowOpacity
+        myView.layer.shadowOffset = Constants.messageToolbarShadowOffset
+        myView.layer.shadowRadius = Constants.messageToolbarShadowRadius
+        return myView
     }()
 
     // MARK: - Properties
@@ -89,6 +121,8 @@ final class ChatView: UIView {
         constant: -AppConstants.Constraints.half)
 
     private var collectionViewDataSource = ChatCollectionViewDataSource()
+    private var collectionViewDelegate = ChatCollectionViewDelegate()
+    var sendButtonTapedWith: ((String)-> Void)?
 
     // MARK: - Init
 
@@ -97,7 +131,7 @@ final class ChatView: UIView {
         self.setupElements()
         self.setupNotifications()
         self.setupTapToHideKeyboard()
-        self.backgroundColor = .systemBackground
+        self.backgroundColor = Constants.backgroundColor
     }
 
     required init?(coder: NSCoder) {
@@ -110,7 +144,7 @@ final class ChatView: UIView {
         guard let text = self.messageTextView.text else {
             return
         }
-        print(text)
+        self.sendButtonTapedWith?(text)
         self.setupMessageTextViewPlaceholder()
         self.resizeTextViewToFitText()
         self.dismissKeyboard()
@@ -121,7 +155,21 @@ final class ChatView: UIView {
 
 extension ChatView: IChatView {
     func showMessages(_ messages: [Message]) {
+        print("At the first: ",self.collectionView.numberOfItems(inSection: 0))
         self.collectionViewDataSource.setData(messages: messages)
+        self.collectionView.reloadData()
+        print("Second: ",self.collectionView.numberOfItems(inSection: 0))
+    }
+
+    func scrollCollectionView(toRow row: Int) {
+        self.collectionView.scrollToItem(at: IndexPath(row: row-1,
+                                                       section: 0),
+                                         at: .bottom,
+                                         animated: true)
+    }
+
+    func appendMessage(_ message: Message, atRow row: Int) {
+        self.collectionViewDataSource.appendMessage(message)
         self.collectionView.reloadData()
     }
 }
@@ -133,6 +181,7 @@ private extension ChatView {
         self.setupSendButton()
         self.setupMessageTextView()
         self.setupCollectionView()
+        self.setupSafeAreaBackgroundView()
     }
 
     func setupSendButton() {
@@ -165,16 +214,17 @@ private extension ChatView {
 
     func setupCollectionView() {
         self.collectionView.dataSource = self.collectionViewDataSource
-        self.collectionView.delegate = self
-        self.collectionView.backgroundColor = .gray
+        self.collectionView.delegate = self.collectionViewDelegate
+        (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).sectionInsetReference = .fromLayoutMargins
 
         self.addSubview(self.collectionView)
         self.collectionView.translatesAutoresizingMaskIntoConstraints = false
         self.collectionView.contentInsetAdjustmentBehavior = .always
-        self.collectionView.contentInset = UIEdgeInsets(top: 10,
-                                                        left: 10,
-                                                        bottom: 10,
-                                                        right: 10)
+        self.collectionView.contentInset = UIEdgeInsets(top: AppConstants.Constraints.half,
+                                                        left: AppConstants.Constraints.half,
+                                                        bottom: AppConstants.Constraints.half,
+                                                        right: AppConstants.Constraints.half)
 
         NSLayoutConstraint.activate([
             self.collectionView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
@@ -182,9 +232,18 @@ private extension ChatView {
             self.collectionView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
             self.collectionView.bottomAnchor.constraint(equalTo: self.messageTextView.topAnchor)
         ])
+    }
 
-        (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-        (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).sectionInsetReference = .fromLayoutMargins
+    func setupSafeAreaBackgroundView() {
+        self.addSubview(self.messageToolbarView)
+        self.messageToolbarView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            self.messageToolbarView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            self.messageToolbarView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            self.messageToolbarView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            self.messageToolbarView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)
+        ])
     }
 }
 
@@ -280,10 +339,12 @@ private extension ChatView {
 
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            self.textViewBottomConstraint.constant = -keyboardSize.height
-            self.sendButtonBottomConstraint.constant = -(keyboardSize.height+AppConstants.Constraints.half)
+
+            self.textViewBottomConstraint.constant = -(keyboardSize.height - self.safeAreaInsets.bottom)
+            self.sendButtonBottomConstraint.constant = -(keyboardSize.height + AppConstants.Constraints.half - self.safeAreaInsets.bottom)
             UIView.animate(withDuration: Constants.messageTextViewAnimationDuration) {
                 self.layoutIfNeeded()
+                self.scrollToBottom()
             }
         }
     }
@@ -295,19 +356,12 @@ private extension ChatView {
             self.layoutIfNeeded()
         }
     }
-}
 
-extension ChatView: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let sectionInset = (collectionViewLayout as! UICollectionViewFlowLayout).sectionInset
-        let referenceHeight: CGFloat = 50 // Approximate height of cell
-        let referenceWidth: CGFloat = collectionView.safeAreaLayoutGuide.layoutFrame.width
-            - sectionInset.left
-            - sectionInset.right
-            - collectionView.contentInset.left
-            - collectionView.contentInset.right
-        return CGSize(width: referenceWidth, height: referenceHeight)
+    func scrollToBottom() {
+        let messagesCount = self.collectionView.numberOfItems(inSection: 0)
+        self.collectionView.scrollToItem(at: IndexPath(row: messagesCount-1,
+                                                       section: 0),
+                                         at: .bottom,
+                                         animated: true)
     }
 }

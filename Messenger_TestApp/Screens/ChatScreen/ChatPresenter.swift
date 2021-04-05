@@ -9,6 +9,7 @@ import Foundation
 
 protocol IChatPresenter {
     func viewDidLoad(ui: IChatView)
+    func viewDidAppear()
 }
 
 final class ChatPresenter {
@@ -32,12 +33,24 @@ final class ChatPresenter {
 extension ChatPresenter: IChatPresenter {
     func viewDidLoad(ui: IChatView) {
         self.ui = ui
+        self.ui?.sendButtonTapedWith = { [weak self] (messageText) in
+            self?.interactor.appendTextToChat(messageText)
+        }
         self.interactor.loadInitData()
+    }
+
+    func viewDidAppear() {
+        let messagesCount = self.interactor.getMessagesCont()
+        self.ui?.scrollCollectionView(toRow: messagesCount)
     }
 }
 
 extension ChatPresenter: IChatInteractorOuter {
     func showMessages(_ messages: [Message]) {
         self.ui?.showMessages(messages)
+    }
+
+    func appendMessage(_ message: Message, atRow row: Int) {
+        self.ui?.appendMessage(message, atRow: row)
     }
 }
