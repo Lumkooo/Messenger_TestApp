@@ -11,8 +11,37 @@ import CoreData
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    // MARK: - Constants
+
+    private enum Constants {
+//        Бар навигации:
+//            Стандартные настройки
+//            Тень:
+//                Цвет: 000000
+//                Прозрачность: 0.38
+//                Отступ: 0,2
+//                Радиус: 7
+
+        static let navigationBarShadowColor = UIColor(rgb: 0x000000).cgColor
+        static let navigationBarShadowOpacity: Float = 0.38
+        static let navigationBarShadowOffset: CGSize = CGSize(width: 0, height: 2)
+        static let navigationBarShadowRadius: CGFloat = 7
+        static let navigationBarBackgroundColor = UIColor(rgb: 0xFFFFFF)
+    }
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+
+        let navigationBarAppearace = UINavigationBar.appearance()
+        navigationBarAppearace.backgroundColor = Constants.navigationBarBackgroundColor
+        navigationBarAppearace.layer.shadowColor = Constants.navigationBarShadowColor
+        // Если ставить largeTitles, то зона с временем и системными иконками наверху - другого цвета
+        // Исправить это не смог
+//        navigationBarAppearace.prefersLargeTitles = true
+        navigationBarAppearace.layer.shadowOpacity = Constants.navigationBarShadowOpacity
+        navigationBarAppearace.layer.shadowOffset = Constants.navigationBarShadowOffset
+        navigationBarAppearace.layer.shadowRadius = Constants.navigationBarShadowRadius
+        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+
         return true
     }
 

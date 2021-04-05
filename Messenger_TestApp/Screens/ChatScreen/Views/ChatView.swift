@@ -106,10 +106,10 @@ final class ChatView: UIView {
         return myView
     }()
 
-    override var inputAccessoryView: UIView? {
-        return self.messageToolbarView
-    }
-
+//    override var inputAccessoryView: UIView? {
+//        return self.messageToolbarView
+//    }
+//
     override var canBecomeFirstResponder: Bool {
         return true
     }
@@ -123,10 +123,12 @@ final class ChatView: UIView {
 
     private lazy var textViewHeightConstraint = self.messageTextView.heightAnchor.constraint(
         equalToConstant: self.heightForString(line: "Hello"))
-    private lazy var textViewBottomConstraint = self.messageTextView.bottomAnchor.constraint(
-        equalTo: self.safeAreaLayoutGuide.bottomAnchor)
+    private lazy var textViewToolbarHeightConstraint = self.messageToolbarView.heightAnchor.constraint(
+        equalToConstant: self.heightForString(line: "Hello"))
+    private lazy var textViewToolbarBottomConstraint = self.messageToolbarView.bottomAnchor.constraint(
+        equalTo: self.bottomAnchor)
     private lazy var sendButtonBottomConstraint = self.sendButton.bottomAnchor.constraint(
-        equalTo: self.safeAreaLayoutGuide.bottomAnchor,
+        equalTo: self.messageToolbarView.safeAreaLayoutGuide.bottomAnchor,
         constant: -AppConstants.Constraints.half)
 
     private var collectionViewDataSource = ChatCollectionViewDataSource()
@@ -195,35 +197,55 @@ extension ChatView: IChatView {
 
 private extension ChatView {
     func setupElements() {
+        self.setupSafeAreaBackgroundView()
         self.setupSendButton()
         self.setupMessageTextView()
         self.setupCollectionView()
-        self.setupSafeAreaBackgroundView()
+    }
+
+    func setupSafeAreaBackgroundView() {
+        self.addSubview(self.messageToolbarView)
+        self.messageToolbarView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            self.messageToolbarView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            self.messageToolbarView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            self.textViewToolbarBottomConstraint,
+            self.messageToolbarView.heightAnchor.constraint(greaterThanOrEqualToConstant: self.minTextHeight)
+        ])
     }
 
     func setupSendButton() {
-        self.addSubview(self.sendButton)
+        self.messageToolbarView.addSubview(self.sendButton)
         self.sendButton.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            self.sendButtonBottomConstraint,
-            self.sendButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor,
-                                                      constant: -AppConstants.Constraints.half),
+            self.sendButton.bottomAnchor.constraint(
+                equalTo: self.messageToolbarView.safeAreaLayoutGuide.bottomAnchor,
+                constant: -AppConstants.Constraints.half),
+            self.sendButton.trailingAnchor.constraint(
+                equalTo: self.messageToolbarView.safeAreaLayoutGuide.trailingAnchor,
+                constant: -AppConstants.Constraints.half),
             self.sendButton.heightAnchor.constraint(equalToConstant: self.minTextHeight),
             self.sendButton.widthAnchor.constraint(equalTo: self.sendButton.heightAnchor)
         ])
     }
 
     func setupMessageTextView() {
-        self.addSubview(self.messageTextView)
+        self.messageToolbarView.addSubview(self.messageTextView)
         self.messageTextView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            self.messageTextView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor,
-                                                          constant: AppConstants.Constraints.half),
-            self.messageTextView.trailingAnchor.constraint(equalTo: self.sendButton.leadingAnchor,
-                                                          constant: -AppConstants.Constraints.half),
-            self.textViewBottomConstraint,
+            self.messageTextView.leadingAnchor.constraint(
+                equalTo: self.messageToolbarView.safeAreaLayoutGuide.leadingAnchor,
+                constant: AppConstants.Constraints.half),
+            self.messageTextView.trailingAnchor.constraint(
+                equalTo: self.sendButton.leadingAnchor,
+                constant: -AppConstants.Constraints.half),
+            self.messageTextView.topAnchor.constraint(
+                equalTo: self.messageToolbarView.topAnchor),
+            self.messageTextView.bottomAnchor.constraint(
+                equalTo: self.messageToolbarView.safeAreaLayoutGuide.bottomAnchor),
             self.textViewHeightConstraint
         ])
         self.resizeTextViewToFitText()
@@ -241,19 +263,7 @@ private extension ChatView {
             self.collectionView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
             self.collectionView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
             self.collectionView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
-            self.collectionView.bottomAnchor.constraint(equalTo: self.messageTextView.topAnchor)
-        ])
-    }
-
-    func setupSafeAreaBackgroundView() {
-        self.addSubview(self.messageToolbarView)
-        self.messageToolbarView.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            self.messageToolbarView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            self.messageToolbarView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            self.messageToolbarView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            self.messageToolbarView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)
+            self.collectionView.bottomAnchor.constraint(equalTo: self.messageToolbarView.topAnchor)
         ])
     }
 }
@@ -290,6 +300,9 @@ extension ChatView: UITextViewDelegate {
         self.textViewHeightConstraint.constant = max(min(expectedSize.height,
                                                          self.maxTextHeight),
                                                      self.minTextHeight)
+        self.textViewToolbarHeightConstraint.constant = max(min(expectedSize.height,
+                                                                self.maxTextHeight),
+                                                            self.minTextHeight) + 32
         self.messageTextView.isScrollEnabled = expectedSize.height > self.maxTextHeight
         UIView.animate(withDuration: Constants.messageTextViewAnimationDuration) {
             self.layoutIfNeeded()
@@ -350,9 +363,7 @@ private extension ChatView {
 
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-
-            self.textViewBottomConstraint.constant = -(keyboardSize.height - self.safeAreaInsets.bottom)
-            self.sendButtonBottomConstraint.constant = -(keyboardSize.height + AppConstants.Constraints.half - self.safeAreaInsets.bottom)
+            self.textViewToolbarBottomConstraint.constant = -keyboardSize.height
             UIView.animate(withDuration: Constants.messageTextViewAnimationDuration) {
                 self.layoutIfNeeded()
                 self.scrollToBottom()
@@ -361,8 +372,7 @@ private extension ChatView {
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
-        self.textViewBottomConstraint.constant = 0
-        self.sendButtonBottomConstraint.constant = -AppConstants.Constraints.half
+        self.textViewToolbarBottomConstraint.constant = 0
         UIView.animate(withDuration: Constants.messageTextViewAnimationDuration) {
             self.layoutIfNeeded()
         }
