@@ -30,22 +30,13 @@ extension ChatCollectionViewDataSource: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        print("WTF: ",self.messages.count)
         return self.messages.count
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print("And please: ",self.messages.count)
-        guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: ChatViewCollectionViewCell.reuseIdentifier,
-                for: indexPath) as? ChatViewCollectionViewCell
-        else {
-            fatalError("Can't dequeue reusable cell")
-        }
-        let message = self.messages[indexPath.row]
-        cell.setupCell(message: message)
-
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! MyCell
+        cell.label.text = self.messages[indexPath.item].text
         return cell
     }
 }

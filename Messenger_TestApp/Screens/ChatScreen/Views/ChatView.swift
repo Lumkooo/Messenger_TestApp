@@ -68,70 +68,79 @@ final class ChatView: UIView {
             collectionViewLayout: UICollectionViewFlowLayout.init())
         myCollectionView.register(ChatViewCollectionViewCell.self,
                                   forCellWithReuseIdentifier: ChatViewCollectionViewCell.reuseIdentifier)
-        myCollectionView.backgroundColor = .clear
+        myCollectionView.backgroundColor = .white
         return myCollectionView
     }()
 
-    private lazy var messageTextView: UITextView = {
-        let myTextView = UITextView()
-        myTextView.delegate = self
-        myTextView.text = Constants.messageTextViewPlaceholder
-        myTextView.backgroundColor = Constants.messageTextViewBackgroundColor
-        myTextView.layer.cornerRadius = Constants.messageTextViewCornerRadius
-        myTextView.textColor = Constants.messageTextViewTextColor
-        myTextView.layer.opacity = Constants.messageTextViewDummyOpacity
-        myTextView.font = Constants.messageTextViewFont
-        return myTextView
-    }()
+//    private lazy var messageTextView: UITextView = {
+//        let myTextView = UITextView()
+//        myTextView.delegate = self
+//        myTextView.text = Constants.messageTextViewPlaceholder
+//        myTextView.backgroundColor = Constants.messageTextViewBackgroundColor
+//        myTextView.layer.cornerRadius = Constants.messageTextViewCornerRadius
+//        myTextView.textColor = Constants.messageTextViewTextColor
+//        myTextView.layer.opacity = Constants.messageTextViewDummyOpacity
+//        myTextView.font = Constants.messageTextViewFont
+//        return myTextView
+//    }()
 
-    private lazy var sendButton: UIButton = {
-        let myButton = UIButton()
-        myButton.addTarget(self,
-                           action: #selector(self.sendButtonTapped(gesture:)),
-                           for: .touchUpInside)
-        let tintedImage = AppConstants.Images.iconSend?.withRenderingMode(.alwaysTemplate)
-        myButton.setImage(tintedImage, for: .normal)
-        myButton.tintColor = Constants.sendButtonColor
-        return myButton
-    }()
+//    private lazy var sendButton: UIButton = {
+//        let myButton = UIButton()
+//        myButton.addTarget(self,
+//                           action: #selector(self.sendButtonTapped(gesture:)),
+//                           for: .touchUpInside)
+//        let tintedImage = AppConstants.Images.iconSend?.withRenderingMode(.alwaysTemplate)
+//        myButton.setImage(tintedImage, for: .normal)
+//        myButton.tintColor = Constants.sendButtonColor
+//        return myButton
+//    }()
 
-    private lazy var messageToolbarView: UIView = {
-        let myView = UIView()
-        myView.backgroundColor = Constants.messageToolbarBackgroundColor
-        myView.layer.shadowColor = Constants.messageToolbarShadowColor
-        myView.layer.shadowOpacity = Constants.messageToolbarShadowOpacity
-        myView.layer.shadowOffset = Constants.messageToolbarShadowOffset
-        myView.layer.shadowRadius = Constants.messageToolbarShadowRadius
-        return myView
-    }()
+//    private lazy var messageToolbarView: UIView = {
+//        let myView = UIView()
+//        myView.backgroundColor = Constants.messageToolbarBackgroundColor
+//        myView.layer.shadowColor = Constants.messageToolbarShadowColor
+//        myView.layer.shadowOpacity = Constants.messageToolbarShadowOpacity
+//        myView.layer.shadowOffset = Constants.messageToolbarShadowOffset
+//        myView.layer.shadowRadius = Constants.messageToolbarShadowRadius
+//        return myView
+//    }()
 
     // MARK: - Properties
 
-    // Высота textView при 4 строках равна:
-    private lazy var maxTextHeight: CGFloat = self.heightForString(line: "Hello\nHello\nHello\nHello")
-    // Высота textView при одной строке равна:
-    private lazy var minTextHeight: CGFloat = self.heightForString(line: "Hello")
+//    // Высота textView при 4 строках равна:
+//    private lazy var maxTextHeight: CGFloat = self.heightForString(line: "Hello\nHello\nHello\nHello")
+//    // Высота textView при одной строке равна:
+//    private lazy var minTextHeight: CGFloat = self.heightForString(line: "Hello")
+//
+//    private lazy var textViewHeightConstraint = self.messageTextView.heightAnchor.constraint(
+//        equalToConstant: self.heightForString(line: "Hello"))
+//    private lazy var textViewBottomConstraint = self.messageTextView.bottomAnchor.constraint(
+//        equalTo: self.safeAreaLayoutGuide.bottomAnchor)
+//    private lazy var sendButtonBottomConstraint = self.sendButton.bottomAnchor.constraint(
+//        equalTo: self.safeAreaLayoutGuide.bottomAnchor,
+//        constant: -AppConstants.Constraints.half)
 
-    private lazy var textViewHeightConstraint = self.messageTextView.heightAnchor.constraint(
-        equalToConstant: self.heightForString(line: "Hello"))
-    private lazy var textViewBottomConstraint = self.messageTextView.bottomAnchor.constraint(
-        equalTo: self.safeAreaLayoutGuide.bottomAnchor)
-    private lazy var sendButtonBottomConstraint = self.sendButton.bottomAnchor.constraint(
-        equalTo: self.safeAreaLayoutGuide.bottomAnchor,
-        constant: -AppConstants.Constraints.half)
-
-    private var collectionViewDataSource = ChatCollectionViewDataSource()
-    private var collectionViewDelegate = ChatCollectionViewDelegate()
+//    private var collectionViewDataSource = ChatCollectionViewDataSource()
+//    private var collectionViewDelegate = ChatCollectionViewDelegate()
     var sendButtonTapedWith: ((String)-> Void)?
+
+
+    var layout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        let width = UIScreen.main.bounds.size.width
+        layout.estimatedItemSize = CGSize(width: width, height: 10)
+        return layout
+    }()
+
+    private var messages: [Message] = []
 
     // MARK: - Init
 
     init() {
         super.init(frame: .zero)
-        self.setupElements()
-        self.setupNotifications()
-        self.setupTapToHideKeyboard()
-        self.backgroundColor = Constants.backgroundColor
+//        self.setupNotifications()
+//        self.setupTapToHideKeyboard()
+//        self.backgroundColor = Constants.backgroundColor
     }
 
     required init?(coder: NSCoder) {
@@ -140,37 +149,39 @@ final class ChatView: UIView {
 
     // MARK: - Обработка нажатия на кнопку
 
-    @objc private func sendButtonTapped(gesture: UIGestureRecognizer) {
-        guard let text = self.messageTextView.text else {
-            return
-        }
-        self.sendButtonTapedWith?(text)
-        self.setupMessageTextViewPlaceholder()
-        self.resizeTextViewToFitText()
-        self.dismissKeyboard()
-    }
+//    @objc private func sendButtonTapped(gesture: UIGestureRecognizer) {
+//        guard let text = self.messageTextView.text else {
+//            return
+//        }
+//        self.sendButtonTapedWith?(text)
+//        self.setupMessageTextViewPlaceholder()
+//        self.resizeTextViewToFitText()
+//        self.dismissKeyboard()
+//    }
 }
 
 // MARK: - IChatView
 
 extension ChatView: IChatView {
     func showMessages(_ messages: [Message]) {
+        self.setupElements()
+        self.collectionView.collectionViewLayout = layout
         print("At the first: ",self.collectionView.numberOfItems(inSection: 0))
-        self.collectionViewDataSource.setData(messages: messages)
+        self.messages = messages
         self.collectionView.reloadData()
         print("Second: ",self.collectionView.numberOfItems(inSection: 0))
     }
 
     func scrollCollectionView(toRow row: Int) {
-        self.collectionView.scrollToItem(at: IndexPath(row: row-1,
-                                                       section: 0),
-                                         at: .bottom,
-                                         animated: true)
+//        self.collectionView.scrollToItem(at: IndexPath(row: row-1,
+//                                                       section: 0),
+//                                         at: .bottom,
+//                                         animated: true)
     }
 
     func appendMessage(_ message: Message, atRow row: Int) {
-        self.collectionViewDataSource.appendMessage(message)
-        self.collectionView.reloadData()
+//        self.collectionViewDataSource.appendMessage(message)
+//        self.collectionView.reloadData()
     }
 }
 
@@ -178,190 +189,214 @@ extension ChatView: IChatView {
 
 private extension ChatView {
     func setupElements() {
-        self.setupSendButton()
-        self.setupMessageTextView()
+//        self.setupSendButton()
+//        self.setupMessageTextView()
         self.setupCollectionView()
-        self.setupSafeAreaBackgroundView()
+//        self.setupSafeAreaBackgroundView()
     }
 
-    func setupSendButton() {
-        self.addSubview(self.sendButton)
-        self.sendButton.translatesAutoresizingMaskIntoConstraints = false
+//    func setupSendButton() {
+//        self.addSubview(self.sendButton)
+//        self.sendButton.translatesAutoresizingMaskIntoConstraints = false
+//
+//        NSLayoutConstraint.activate([
+//            self.sendButtonBottomConstraint,
+//            self.sendButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor,
+//                                                      constant: -AppConstants.Constraints.half),
+//            self.sendButton.heightAnchor.constraint(equalToConstant: self.minTextHeight),
+//            self.sendButton.widthAnchor.constraint(equalTo: self.sendButton.heightAnchor)
+//        ])
+//    }
 
-        NSLayoutConstraint.activate([
-            self.sendButtonBottomConstraint,
-            self.sendButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor,
-                                                      constant: -AppConstants.Constraints.half),
-            self.sendButton.heightAnchor.constraint(equalToConstant: self.minTextHeight),
-            self.sendButton.widthAnchor.constraint(equalTo: self.sendButton.heightAnchor)
-        ])
-    }
-
-    func setupMessageTextView() {
-        self.addSubview(self.messageTextView)
-        self.messageTextView.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            self.messageTextView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor,
-                                                          constant: AppConstants.Constraints.half),
-            self.messageTextView.trailingAnchor.constraint(equalTo: self.sendButton.leadingAnchor,
-                                                          constant: -AppConstants.Constraints.half),
-            self.textViewBottomConstraint,
-            self.textViewHeightConstraint
-        ])
-        self.resizeTextViewToFitText()
-    }
+//    func setupMessageTextView() {
+//        self.addSubview(self.messageTextView)
+//        self.messageTextView.translatesAutoresizingMaskIntoConstraints = false
+//
+//        NSLayoutConstraint.activate([
+//            self.messageTextView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor,
+//                                                          constant: AppConstants.Constraints.half),
+//            self.messageTextView.trailingAnchor.constraint(equalTo: self.sendButton.leadingAnchor,
+//                                                          constant: -AppConstants.Constraints.half),
+//            self.textViewBottomConstraint,
+//            self.textViewHeightConstraint
+//        ])
+//        self.resizeTextViewToFitText()
+//    }
 
     func setupCollectionView() {
-        self.collectionView.dataSource = self.collectionViewDataSource
-        self.collectionView.delegate = self.collectionViewDelegate
-        (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-        (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).sectionInsetReference = .fromLayoutMargins
+        // MARK: - FIX!
+        self.collectionView.dataSource = self
+        self.collectionView.delegate = self
+//        (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+//        (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).sectionInsetReference = .fromLayoutMargins
 
         self.addSubview(self.collectionView)
         self.collectionView.translatesAutoresizingMaskIntoConstraints = false
         self.collectionView.contentInsetAdjustmentBehavior = .always
         self.collectionView.contentInset = UIEdgeInsets(top: AppConstants.Constraints.half,
                                                         left: AppConstants.Constraints.half,
-                                                        bottom: AppConstants.Constraints.half,
-                                                        right: AppConstants.Constraints.half)
+                                                        bottom: -AppConstants.Constraints.half,
+                                                        right: -AppConstants.Constraints.half)
 
         NSLayoutConstraint.activate([
             self.collectionView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
             self.collectionView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
             self.collectionView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
-            self.collectionView.bottomAnchor.constraint(equalTo: self.messageTextView.topAnchor)
+            self.collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
 
-    func setupSafeAreaBackgroundView() {
-        self.addSubview(self.messageToolbarView)
-        self.messageToolbarView.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            self.messageToolbarView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            self.messageToolbarView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            self.messageToolbarView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            self.messageToolbarView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)
-        ])
-    }
+//    func setupSafeAreaBackgroundView() {
+//        self.addSubview(self.messageToolbarView)
+//        self.messageToolbarView.translatesAutoresizingMaskIntoConstraints = false
+//
+//        NSLayoutConstraint.activate([
+//            self.messageToolbarView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+//            self.messageToolbarView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+//            self.messageToolbarView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+//            self.messageToolbarView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)
+//        ])
+//    }
 }
 
 // MARK: - UITextViewDelegate
 
-extension ChatView: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
-        self.resizeTextViewToFitText()
-    }
+//extension ChatView: UITextViewDelegate {
+//    func textViewDidChange(_ textView: UITextView) {
+//        self.resizeTextViewToFitText()
+//    }
+//
+//    func textView(_ textView: UITextView,
+//                  shouldChangeTextIn range: NSRange,
+//                  replacementText text: String) -> Bool {
+//        let currentText: String = textView.text
+//        let updatedText = (currentText as NSString).replacingCharacters(in: range, with: text)
+//        if updatedText.isEmpty {
+//            self.setupMessageTextViewPlaceholder()
+//            textView.selectedTextRange = textView.textRange(from: textView.beginningOfDocument,
+//                                                            to: textView.beginningOfDocument)
+//        } else if textView.layer.opacity == Constants.messageTextViewDummyOpacity
+//                    && !text.isEmpty {
+//            textView.layer.opacity = Constants.messageTextViewOpacity
+//            textView.text = text
+//        } else {
+//            return true
+//        }
+//        return false
+//    }
+//
+//    private func resizeTextViewToFitText() {
+//        let size = CGSize(width: self.messageTextView.frame.width, height: .infinity)
+//        let expectedSize = self.messageTextView.sizeThatFits(size)
+//        self.textViewHeightConstraint.constant = max(min(expectedSize.height,
+//                                                         self.maxTextHeight),
+//                                                     self.minTextHeight)
+//        self.messageTextView.isScrollEnabled = expectedSize.height > self.maxTextHeight
+//        UIView.animate(withDuration: Constants.messageTextViewAnimationDuration) {
+//            self.layoutIfNeeded()
+//        }
+//    }
+//}
 
-    func textView(_ textView: UITextView,
-                  shouldChangeTextIn range: NSRange,
-                  replacementText text: String) -> Bool {
-        let currentText: String = textView.text
-        let updatedText = (currentText as NSString).replacingCharacters(in: range, with: text)
-        if updatedText.isEmpty {
-            self.setupMessageTextViewPlaceholder()
-            textView.selectedTextRange = textView.textRange(from: textView.beginningOfDocument,
-                                                            to: textView.beginningOfDocument)
-        } else if textView.layer.opacity == Constants.messageTextViewDummyOpacity
-                    && !text.isEmpty {
-            textView.layer.opacity = Constants.messageTextViewOpacity
-            textView.text = text
-        } else {
-            return true
-        }
-        return false
-    }
-
-    private func resizeTextViewToFitText() {
-        let size = CGSize(width: self.messageTextView.frame.width, height: .infinity)
-        let expectedSize = self.messageTextView.sizeThatFits(size)
-        self.textViewHeightConstraint.constant = max(min(expectedSize.height,
-                                                         self.maxTextHeight),
-                                                     self.minTextHeight)
-        self.messageTextView.isScrollEnabled = expectedSize.height > self.maxTextHeight
-        UIView.animate(withDuration: Constants.messageTextViewAnimationDuration) {
-            self.layoutIfNeeded()
-        }
-    }
-}
-
-private extension ChatView {
-    func heightForString(line: String) -> CGFloat {
-        let textView = UITextView()
-        let maxwidth = UIScreen.main.bounds.width
-        textView.frame = CGRect(x:0,
-                                y: 0,
-                                width: maxwidth,
-                                height: CGFloat(MAXFLOAT))
-        textView.textContainerInset = UIEdgeInsets.zero
-        textView.textContainer.lineFragmentPadding = 0
-        textView.font = Constants.messageTextViewFont
-        textView.text = line
-        textView.isScrollEnabled = false
-        textView.sizeToFit()
-        return textView.frame.size.height
-    }
-
-    func setupMessageTextViewPlaceholder() {
-        self.messageTextView.layer.opacity = Constants.messageTextViewDummyOpacity
-        self.messageTextView.font = Constants.messageTextViewFont
-        self.messageTextView.text = Constants.messageTextViewPlaceholder
-    }
-
-    func setupTapToHideKeyboard() {
-        let tap = UITapGestureRecognizer(
-            target: self,
-            action: #selector(UIInputViewController.dismissKeyboard))
-        self.addGestureRecognizer(tap)
-    }
-
-    @objc func dismissKeyboard() {
-        self.endEditing(true)
-    }
-}
+//private extension ChatView {
+//    func heightForString(line: String) -> CGFloat {
+//        let textView = UITextView()
+//        let maxwidth = UIScreen.main.bounds.width
+//        textView.frame = CGRect(x:0,
+//                                y: 0,
+//                                width: maxwidth,
+//                                height: CGFloat(MAXFLOAT))
+//        textView.textContainerInset = UIEdgeInsets.zero
+//        textView.textContainer.lineFragmentPadding = 0
+//        textView.font = Constants.messageTextViewFont
+//        textView.text = line
+//        textView.isScrollEnabled = false
+//        textView.sizeToFit()
+//        return textView.frame.size.height
+//    }
+//
+//    func setupMessageTextViewPlaceholder() {
+//        self.messageTextView.layer.opacity = Constants.messageTextViewDummyOpacity
+//        self.messageTextView.font = Constants.messageTextViewFont
+//        self.messageTextView.text = Constants.messageTextViewPlaceholder
+//    }
+//
+//    func setupTapToHideKeyboard() {
+//        let tap = UITapGestureRecognizer(
+//            target: self,
+//            action: #selector(UIInputViewController.dismissKeyboard))
+//        self.addGestureRecognizer(tap)
+//    }
+//
+//    @objc func dismissKeyboard() {
+//        self.endEditing(true)
+//    }
+//}
 
 // MARK: - Notifications setup
 
-private extension ChatView {
-    func setupNotifications() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillShow(notification:)),
-            name: UIResponder.keyboardWillShowNotification,
-            object: nil)
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillHide(notification:)),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil)
+//private extension ChatView {
+//    func setupNotifications() {
+//        NotificationCenter.default.addObserver(
+//            self,
+//            selector: #selector(keyboardWillShow(notification:)),
+//            name: UIResponder.keyboardWillShowNotification,
+//            object: nil)
+//        NotificationCenter.default.addObserver(
+//            self,
+//            selector: #selector(keyboardWillHide(notification:)),
+//            name: UIResponder.keyboardWillHideNotification,
+//            object: nil)
+//    }
+//
+//    @objc func keyboardWillShow(notification: NSNotification) {
+//        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+//
+//            self.textViewBottomConstraint.constant = -(keyboardSize.height - self.safeAreaInsets.bottom)
+//            self.sendButtonBottomConstraint.constant = -(keyboardSize.height + AppConstants.Constraints.half - self.safeAreaInsets.bottom)
+//            UIView.animate(withDuration: Constants.messageTextViewAnimationDuration) {
+//                self.layoutIfNeeded()
+//                self.scrollToBottom()
+//            }
+//        }
+//    }
+//
+//    @objc func keyboardWillHide(notification: NSNotification) {
+//        self.textViewBottomConstraint.constant = 0
+//        self.sendButtonBottomConstraint.constant = -AppConstants.Constraints.half
+//        UIView.animate(withDuration: Constants.messageTextViewAnimationDuration) {
+//            self.layoutIfNeeded()
+//        }
+//    }
+//
+//    func scrollToBottom() {
+//        let messagesCount = self.collectionView.numberOfItems(inSection: 0)
+//        self.collectionView.scrollToItem(at: IndexPath(row: messagesCount-1,
+//                                                       section: 0),
+//                                         at: .bottom,
+//                                         animated: true)
+//    }
+//}
+
+extension ChatView: UICollectionViewDelegate {
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        layout.estimatedItemSize = CGSize(width: self.bounds.size.width, height: 10)
+        super.traitCollectionDidChange(previousTraitCollection)
+    }
+}
+
+extension ChatView: UICollectionViewDataSource {
+
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        return self.messages.count
     }
 
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-
-            self.textViewBottomConstraint.constant = -(keyboardSize.height - self.safeAreaInsets.bottom)
-            self.sendButtonBottomConstraint.constant = -(keyboardSize.height + AppConstants.Constraints.half - self.safeAreaInsets.bottom)
-            UIView.animate(withDuration: Constants.messageTextViewAnimationDuration) {
-                self.layoutIfNeeded()
-                self.scrollToBottom()
-            }
-        }
-    }
-
-    @objc func keyboardWillHide(notification: NSNotification) {
-        self.textViewBottomConstraint.constant = 0
-        self.sendButtonBottomConstraint.constant = -AppConstants.Constraints.half
-        UIView.animate(withDuration: Constants.messageTextViewAnimationDuration) {
-            self.layoutIfNeeded()
-        }
-    }
-
-    func scrollToBottom() {
-        let messagesCount = self.collectionView.numberOfItems(inSection: 0)
-        self.collectionView.scrollToItem(at: IndexPath(row: messagesCount-1,
-                                                       section: 0),
-                                         at: .bottom,
-                                         animated: true)
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChatViewCollectionViewCell.reuseIdentifier,
+                                                      for: indexPath) as! ChatViewCollectionViewCell
+        cell.setupCell(message: messages[indexPath.item])
+        return cell
     }
 }
