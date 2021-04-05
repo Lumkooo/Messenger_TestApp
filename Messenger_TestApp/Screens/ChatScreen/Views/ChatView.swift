@@ -69,6 +69,7 @@ final class ChatView: UIView {
         myCollectionView.register(ChatViewCollectionViewCell.self,
                                   forCellWithReuseIdentifier: ChatViewCollectionViewCell.reuseIdentifier)
         myCollectionView.backgroundColor = Constants.backgroundColor
+        myCollectionView.keyboardDismissMode = .interactive
         return myCollectionView
     }()
 
@@ -104,6 +105,14 @@ final class ChatView: UIView {
         myView.layer.shadowRadius = Constants.messageToolbarShadowRadius
         return myView
     }()
+
+    override var inputAccessoryView: UIView? {
+        return self.messageToolbarView
+    }
+
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
 
     // MARK: - Properties
 

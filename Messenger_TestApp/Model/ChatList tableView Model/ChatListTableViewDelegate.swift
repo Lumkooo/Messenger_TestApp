@@ -51,7 +51,8 @@ extension ChatListTableViewDelegate: UITableViewDelegate {
             tableView.deleteRows(at: [indexPath], with: .fade)
             completionHandler(true)
         }
-        deleteAction.image = UIImage(systemName: "trash")
+        let tintedImage = AppConstants.Images.iconDelete?.withRenderingMode(.alwaysTemplate)
+        deleteAction.image = tintedImage
         deleteAction.image?.withTintColor(Constants.deleteButtonColor)
         deleteAction.backgroundColor = .red
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
