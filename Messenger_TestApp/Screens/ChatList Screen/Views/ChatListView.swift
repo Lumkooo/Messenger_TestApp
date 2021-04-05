@@ -18,6 +18,13 @@ protocol IChatListView: AnyObject {
 
 final class ChatListView: UIView {
 
+    // MARK: - Constants
+
+    private enum Constants {
+//        Заливка: FFFFFF
+        static let backgroundColor = UIColor(rgb: 0xFFFFFF)
+    }
+
     // MARK: - Views
 
     private lazy var emptyChatLabel: UILabel = {
@@ -33,6 +40,7 @@ final class ChatListView: UIView {
         let myTableView = UITableView()
         myTableView.register(ChatListTableViewCell.self,
                              forCellReuseIdentifier: ChatListTableViewCell.reuseIdentifier)
+        myTableView.separatorColor = .clear
         return myTableView
     }()
 
@@ -47,7 +55,7 @@ final class ChatListView: UIView {
 
     init() {
         super.init(frame: .zero)
-        self.backgroundColor = .systemBackground
+        self.backgroundColor = Constants.backgroundColor
     }
 
     required init?(coder: NSCoder) {
@@ -70,6 +78,7 @@ extension ChatListView: IChatListView {
     }
 
     func appendChat(_ chat: Chat) {
+        // Вставка происходит в начало списка, поэтому row = 0
         let indexPath = IndexPath(row: 0, section: 0)
         self.chatListTableViewDataSource.insertMessage(chat)
         self.tableView.insertRows(at: [indexPath], with: .left)
@@ -80,7 +89,6 @@ extension ChatListView: IChatListView {
         self.chatListTableViewDataSource.removeMessageAt(indexPath)
         self.tableView.deleteRows(at: [indexPath], with: .left)
     }
-
 }
 
 // MARK: - UISetup

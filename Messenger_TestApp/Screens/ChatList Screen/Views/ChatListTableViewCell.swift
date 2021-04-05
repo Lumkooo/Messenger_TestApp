@@ -9,6 +9,30 @@ import UIKit
 
 final class ChatListTableViewCell: UITableViewCell {
 
+    // MARK: - Constants
+
+    private enum Constants {
+
+//        Элемент чата:
+//            Заливка: 000000
+//            Закругление: 8
+//            Текст сообщения:
+//                Цвет: FFFFFF
+//                Шрифт: Системный жирный 18
+//            Время:
+//                Цвет: FFFFFF
+//                Шрифт: Системный 13
+
+        static let messageTextColor = UIColor(rgb: 0xFFFFFF)
+        static let messageTextFont = UIFont.boldSystemFont(ofSize: 18)
+
+        static let messageBackgroundColor = UIColor(rgb: 0x000000)
+        static let messageCornerRadius: CGFloat = 8
+        
+        static let timeTextColor = UIColor(rgb: 0xFFFFFF)
+        static let timeTextFont = UIFont.systemFont(ofSize: 13)
+    }
+
     // MARK: - Properties
 
     static let reuseIdentifier = String(describing: self)
@@ -17,12 +41,15 @@ final class ChatListTableViewCell: UITableViewCell {
 
     private lazy var messageLabel: UILabel = {
         let myLabel = UILabel()
-
+        myLabel.textColor = Constants.messageTextColor
+        myLabel.font = Constants.messageTextFont
         return myLabel
     }()
 
     private lazy var timeLabel: UILabel = {
         let myLabel = UILabel()
+        myLabel.textColor = Constants.timeTextColor
+        myLabel.font = Constants.timeTextFont
         return myLabel
     }()
 
@@ -33,13 +60,15 @@ final class ChatListTableViewCell: UITableViewCell {
         super.init(style: style,
                    reuseIdentifier: reuseIdentifier)
         self.setupElements()
+        self.backgroundColor = Constants.messageBackgroundColor
+        self.layer.cornerRadius = Constants.messageCornerRadius
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Метод для конфигурации TableViewCell извне
+    // MARK: - Public method
 
     func setupCell(messages: [Message]) {
         if !messages.isEmpty {
@@ -81,7 +110,7 @@ private extension ChatListTableViewCell {
             self.timeLabel.topAnchor.constraint(equalTo: self.messageLabel.bottomAnchor,
                                                        constant: AppConstants.Constraints.quarter),
             self.timeLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor,
-                                                       constant: -AppConstants.Constraints.quarter)
+                                                       constant: -AppConstants.Constraints.normal)
         ])
     }
 }
