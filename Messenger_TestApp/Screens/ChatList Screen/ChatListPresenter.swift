@@ -9,7 +9,6 @@ import Foundation
 
 protocol IChatListPresenter {
     func viewDidLoad(ui: IChatListView)
-    func goToChat(_ chat: Chat)
     func goToChat()
 }
 
@@ -34,18 +33,39 @@ final class ChatListPresenter {
 extension ChatListPresenter: IChatListPresenter {
     func viewDidLoad(ui: IChatListView) {
         self.ui = ui
+        self.ui?.didSelectCellAt = { [weak self] (indexPath) in
+            self?.interactor.didSelectCellAt(indexPath: indexPath)
+        }
+        self.ui?.removeRowAt = { [weak self] (indexPath) in
+            self?.interactor.removeChatAt(indexPath)
+        }
         self.interactor.loadInitData()
     }
 
-    func goToChat(_ chat: Chat) {
-        self.router.showChatVC(chat)
-    }
-
     func goToChat() {
-        self.router.showChatVC()
+        self.interactor.addChatTapped()
     }
 }
 
 extension ChatListPresenter: IChatListInteractorOuter {
+    func showChats(_ chats: [Chat]) {
+        self.ui?.showChats(chats)
+    }
+
+    func goToChat(_ chat: Chat, delegate: IChatListInteractorDelegate) {
+        self.router.showChatVC(chat, delegate: delegate)
+    }
+
+    func goToChat(delegate: IChatListInteractorDelegate) {
+        self.router.showChatVC(delegate: delegate)
+    }
+
+    func appendChat(_ chat: Chat) {
+        self.ui?.appendChat(chat)
+    }
+
+    func removeChatFrom(index: Int) {
+        self.ui?.removeChatFrom(index)
+    }
 
 }

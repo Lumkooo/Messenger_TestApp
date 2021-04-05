@@ -8,8 +8,8 @@
 import UIKit
 
 protocol IChatListRouter {
-    func showChatVC()
-    func showChatVC(_ chat: Chat)
+    func showChatVC(delegate: IChatListInteractorDelegate)
+    func showChatVC(_ chat: Chat, delegate: IChatListInteractorDelegate)
 }
 
 final class ChatListRouter {
@@ -22,17 +22,17 @@ final class ChatListRouter {
 // MARK: - IChatListRouter
 
 extension ChatListRouter: IChatListRouter {
-    func showChatVC() {
+    func showChatVC(delegate: IChatListInteractorDelegate) {
         let chat = Chat()
-        self.presentChatVC(forChat: chat)
+        self.presentChatVC(forChat: chat, delegate: delegate)
     }
 
-    func showChatVC(_ chat: Chat) {
-        self.presentChatVC(forChat: chat)
+    func showChatVC(_ chat: Chat, delegate: IChatListInteractorDelegate) {
+        self.presentChatVC(forChat: chat, delegate: delegate)
     }
 
-    private func presentChatVC(forChat chat: Chat) {
-        let viewController = ChatVCAssembly.createVC(chat: chat)
+    private func presentChatVC(forChat chat: Chat, delegate: IChatListInteractorDelegate) {
+        let viewController = ChatVCAssembly.createVC(chat: chat, delegate: delegate)
         self.vc?.navigationController?.pushViewController(viewController, animated: true)
     }
 }

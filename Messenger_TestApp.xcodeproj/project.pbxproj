@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CE2293BB261AA968005ECDBB /* ChatCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2293BA261AA968005ECDBB /* ChatCollectionViewDelegate.swift */; };
+		CE2293C8261AC8BA005ECDBB /* ChatListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2293C7261AC8BA005ECDBB /* ChatListTableViewCell.swift */; };
+		CE2293CE261ACBE9005ECDBB /* ChatListTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2293CD261ACBE8005ECDBB /* ChatListTableViewDelegate.swift */; };
+		CE2293D6261ACBF6005ECDBB /* ChatListTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2293D5261ACBF6005ECDBB /* ChatListTableViewDataSource.swift */; };
 		CEC2854626197EF7007472AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2854526197EF7007472AB /* AppDelegate.swift */; };
 		CEC2854826197EF7007472AB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2854726197EF7007472AB /* SceneDelegate.swift */; };
 		CEC2855026197EF7007472AB /* Messenger_TestApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CEC2854E26197EF7007472AB /* Messenger_TestApp.xcdatamodeld */; };
@@ -60,7 +62,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		CE2293BA261AA968005ECDBB /* ChatCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCollectionViewDelegate.swift; sourceTree = "<group>"; };
+		CE2293C7261AC8BA005ECDBB /* ChatListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTableViewCell.swift; sourceTree = "<group>"; };
+		CE2293CD261ACBE8005ECDBB /* ChatListTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTableViewDelegate.swift; sourceTree = "<group>"; };
+		CE2293D5261ACBF6005ECDBB /* ChatListTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTableViewDataSource.swift; sourceTree = "<group>"; };
 		CEC2854226197EF7007472AB /* Messenger_TestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger_TestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEC2854526197EF7007472AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEC2854726197EF7007472AB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -126,6 +130,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE2293CC261ACBD7005ECDBB /* ChatList tableView Model */ = {
+			isa = PBXGroup;
+			children = (
+				CE2293CD261ACBE8005ECDBB /* ChatListTableViewDelegate.swift */,
+				CE2293D5261ACBF6005ECDBB /* ChatListTableViewDataSource.swift */,
+			);
+			path = "ChatList tableView Model";
+			sourceTree = "<group>";
+		};
 		CEC2853926197EF7007472AB = {
 			isa = PBXGroup;
 			children = (
@@ -231,6 +244,7 @@
 				CEC285AA26198065007472AB /* UIColorExtension.swift */,
 				CEC285AB26198065007472AB /* AppConstants.swift */,
 				CEC285FD26199E93007472AB /* ChatView collectionView Model */,
+				CE2293CC261ACBD7005ECDBB /* ChatList tableView Model */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -249,9 +263,9 @@
 			isa = PBXGroup;
 			children = (
 				CEC285B72619806F007472AB /* Views */,
-				CEC285B32619806F007472AB /* ChatListInteractor.swift */,
-				CEC285B42619806F007472AB /* ChatListPresenter.swift */,
 				CEC285B52619806F007472AB /* ChatListViewController.swift */,
+				CEC285B42619806F007472AB /* ChatListPresenter.swift */,
+				CEC285B32619806F007472AB /* ChatListInteractor.swift */,
 				CEC285B62619806F007472AB /* ChatListRouter.swift */,
 			);
 			path = "ChatList Screen";
@@ -261,6 +275,7 @@
 			isa = PBXGroup;
 			children = (
 				CEC285B82619806F007472AB /* ChatListView.swift */,
+				CE2293C7261AC8BA005ECDBB /* ChatListTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -310,7 +325,6 @@
 			isa = PBXGroup;
 			children = (
 				CEC285F326199E78007472AB /* ChatCollectionViewDataSource.swift */,
-				CE2293BA261AA968005ECDBB /* ChatCollectionViewDelegate.swift */,
 			);
 			path = "ChatView collectionView Model";
 			sourceTree = "<group>";
@@ -456,17 +470,19 @@
 				CEC285D02619806F007472AB /* StartView.swift in Sources */,
 				CEC285C92619806F007472AB /* ChatListViewController.swift in Sources */,
 				CEC285D22619806F007472AB /* ChatRouter.swift in Sources */,
-				CE2293BB261AA968005ECDBB /* ChatCollectionViewDelegate.swift in Sources */,
 				CEC285CA2619806F007472AB /* ChatListRouter.swift in Sources */,
 				CEC2854826197EF7007472AB /* SceneDelegate.swift in Sources */,
 				CEC285AD26198065007472AB /* AppConstants.swift in Sources */,
 				CEC285F426199E79007472AB /* ChatCollectionViewDataSource.swift in Sources */,
+				CE2293D6261ACBF6005ECDBB /* ChatListTableViewDataSource.swift in Sources */,
 				CEC285A52619805A007472AB /* Message.swift in Sources */,
 				CEC285CC2619806F007472AB /* StartViewController.swift in Sources */,
 				CEC2859126198041007472AB /* ChatListVCAssembly.swift in Sources */,
 				CEC2859326198041007472AB /* NavigationControllerAssembly.swift in Sources */,
+				CE2293C8261AC8BA005ECDBB /* ChatListTableViewCell.swift in Sources */,
 				CEC285CD2619806F007472AB /* StartInteractor.swift in Sources */,
 				CEC285D32619806F007472AB /* ChatInteractor.swift in Sources */,
+				CE2293CE261ACBE9005ECDBB /* ChatListTableViewDelegate.swift in Sources */,
 				CEC285CF2619806F007472AB /* StartRouter.swift in Sources */,
 				CEC285A42619805A007472AB /* Chat.swift in Sources */,
 				CEC285AC26198065007472AB /* UIColorExtension.swift in Sources */,

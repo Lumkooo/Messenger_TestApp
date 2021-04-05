@@ -11,6 +11,7 @@ protocol IChatInteractor {
     func loadInitData()
     func appendTextToChat(_ messageText: String)
     func getMessagesCont() -> Int
+    func saveChat()
 }
 
 protocol IChatInteractorOuter: AnyObject {
@@ -24,12 +25,15 @@ final class ChatInteractor {
     // MARK: - Properties
 
     private var chat: Chat
+    private var isChatChanged = false
+    private let delegate: IChatListInteractorDelegate
     weak var presenter: IChatInteractorOuter?
 
     // MARK: - Init
 
-    init(chat: Chat) {
+    init(chat: Chat, delegate: IChatListInteractorDelegate) {
         self.chat = chat
+        self.delegate = delegate
     }
 }
 
@@ -37,31 +41,6 @@ final class ChatInteractor {
 
 extension ChatInteractor: IChatInteractor {
     func loadInitData() {
-        self.chat.messages.append(Message(text: "Привет, я бы хотел кое-что написать. Немного текста, который я бы хотел увидеть чуточку позже. Немного больше и готово! И еще чуточку добавить! Хопа! хех =) What if i'll write something else?",
-                                          time: "15:30",
-                                          isOutgoing: true))
-//        self.chat.messages.append(Message(text: "Привет, я бы хотел кое-что написать. Немного текста, который я бы хотел увидеть чуточку позже.one",
-//                                          time: "15:30",
-//                                          isOutgoing: false))
-//        self.chat.messages.append(Message(text: "Привет, я бы хотел кое-что написать. Немного ",
-//                                          time: "15:30",
-//                                          isOutgoing: true))
-//        self.chat.messages.append(Message(text: "Привет, я бы хотел кое-что написать. Немного текста, который я бы хотел увидеть чуточку позже. Немного больше и готово! И еще чуточку добавить! Хопа! хех =) What if i'll write something else?Привет, я бы хотел кое-что написать. Немного текста, который я бы хотел увидеть чуточку позже. Немного больше и готово! И еще чуточку добавить! Хопа! хех =) What if i'll write something else?",
-//                                          time: "15:30",
-//                                          isOutgoing: false))
-//        self.chat.messages.append(Message(text: "Немного больше и готово! И еще чуточку добавить",
-//                                          time: "15:30",
-//                                          isOutgoing: true))
-//        self.chat.messages.append(Message(text: "Second one",
-//                                          time: "15:30",
-//                                          isOutgoing: false))
-//        self.chat.messages.append(Message(text: "third One",
-//                                          time: "15:30",
-//                                          isOutgoing: true))
-//        self.chat.messages.append(Message(text: "okay",
-//                                          time: "15:30",
-//                                          isOutgoing: false))
-
         self.presenter?.showMessages(self.chat.messages)
     }
 
@@ -76,17 +55,29 @@ extension ChatInteractor: IChatInteractor {
                               time: time,
                               isOutgoing: isOutgoing)
         self.chat.messages.append(message)
+        self.isChatChanged = true
         self.presenter?.appendMessage(message, atRow: self.chat.messages.count)
+    }
+
+    func saveChat() {
+        if !self.chat.messages.isEmpty {
+            self.delegate.saveChat(self.chat, isChatChaged: self.isChatChanged)
+        }
     }
 }
 
 private extension ChatInteractor {
     func getCurrentTime() -> String {
         let date = Date()
+        var time = ""
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: date)
         let minutes = calendar.component(.minute, from: date)
-        let time = "\(hour):\(minutes)"
+        if minutes < 10 {
+            time = "\(hour):0\(minutes)"
+        } else {
+            time = "\(hour):\(minutes)"
+        }
         return time
     }
 

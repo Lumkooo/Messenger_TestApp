@@ -10,6 +10,7 @@ import Foundation
 protocol IChatPresenter {
     func viewDidLoad(ui: IChatView)
     func viewDidAppear()
+    func viewDidDissapear()
 }
 
 final class ChatPresenter {
@@ -42,6 +43,10 @@ extension ChatPresenter: IChatPresenter {
     func viewDidAppear() {
         let messagesCount = self.interactor.getMessagesCont()
         self.ui?.scrollCollectionView(toRow: messagesCount)
+    }
+
+    func viewDidDissapear() {
+        self.interactor.saveChat()
     }
 }
 

@@ -11,15 +11,18 @@ final class Chat {
 
     // MARK: - Properties
 
+    var id: String
     var messages: [Message]
 
     // MARK: - Init
 
     init(messages: [Message]) {
+        self.id = UUID().uuidString
         self.messages = messages
     }
 
     init() {
+        self.id = UUID().uuidString
         self.messages = []
     }
 }

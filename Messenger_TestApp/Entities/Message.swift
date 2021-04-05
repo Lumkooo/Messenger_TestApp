@@ -25,3 +25,10 @@ final class Message {
         self.isOutgoing = isOutgoing
     }
 }
+
+
+extension Message: Equatable {
+    static func == (lhs: Message, rhs: Message) -> Bool {
+        return (lhs.time == rhs.time && lhs.text == lhs.text)
+    }
+}

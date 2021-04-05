@@ -8,8 +8,8 @@
 import UIKit
 
 enum ChatVCAssembly {
-    static func createVC(chat: Chat) -> UIViewController {
-        let interactor = ChatInteractor(chat: chat)
+    static func createVC(chat: Chat, delegate: IChatListInteractorDelegate) -> UIViewController {
+        let interactor = ChatInteractor(chat: chat, delegate: delegate)
         let router = ChatRouter()
         let presenter = ChatPresenter(interactor: interactor, router: router)
         let viewController = ChatViewController(presenter: presenter)

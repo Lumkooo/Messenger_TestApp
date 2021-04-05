@@ -161,10 +161,10 @@ private extension ChatViewCollectionViewCell {
         NSLayoutConstraint.activate([
             self.messageContainerView.topAnchor.constraint(
                 equalTo: self.contentView.topAnchor,
-                constant: AppConstants.Constraints.quarter),
+                constant: AppConstants.Constraints.half),
             self.messageContainerView.bottomAnchor.constraint(
                 equalTo: self.contentView.bottomAnchor,
-                constant: AppConstants.Constraints.quarter),
+                constant: -AppConstants.Constraints.half),
             self.messageContainerView.heightAnchor.constraint(
                 greaterThanOrEqualToConstant: 0)
         ])

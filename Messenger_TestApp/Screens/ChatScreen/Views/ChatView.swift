@@ -68,7 +68,7 @@ final class ChatView: UIView {
             collectionViewLayout: UICollectionViewFlowLayout.init())
         myCollectionView.register(ChatViewCollectionViewCell.self,
                                   forCellWithReuseIdentifier: ChatViewCollectionViewCell.reuseIdentifier)
-        myCollectionView.backgroundColor = .white
+        myCollectionView.backgroundColor = Constants.backgroundColor
         return myCollectionView
     }()
 
