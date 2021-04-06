@@ -41,7 +41,7 @@ final class ChatListViewController: UIViewController {
 
     }
 
-    // MARK: - Добавление
+    // MARK: - Кнопка добавления чата
 
     private func setupAddButton() {
         let add = UIBarButtonItem(barButtonSystemItem: .add,

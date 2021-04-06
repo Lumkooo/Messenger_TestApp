@@ -8,17 +8,16 @@
 import Foundation
 
 protocol IChatInteractor {
-    func loadInitData()
-    func appendTextToChat(_ messageText: String)
-    func getMessagesCont() -> Int
     func saveChat()
+    func loadInitData()
+    func getMessagesCont() -> Int
+    func appendTextToChat(_ messageText: String)
 }
 
 protocol IChatInteractorOuter: AnyObject {
     func showMessages(_ messages: [Message])
     func appendMessage(_ message: Message, atRow row: Int)
 }
-
 
 final class ChatInteractor {
 
@@ -50,8 +49,7 @@ extension ChatInteractor: IChatInteractor {
 
     func appendTextToChat(_ messageText: String) {
         let trimmedMessage = self.trimmText(messageText)
-        if trimmedMessage.isEmpty ||
-            trimmedMessage == AppConstants.Placeholders.messageTextViewPlaceholder {
+        if trimmedMessage.isEmpty {
             return
         }
         let time = self.getCurrentTime()

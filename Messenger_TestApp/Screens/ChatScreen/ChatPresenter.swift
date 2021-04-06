@@ -8,9 +8,9 @@
 import Foundation
 
 protocol IChatPresenter {
-    func viewDidLoad(ui: IChatView)
     func viewDidAppear()
     func viewDidDissapear()
+    func viewDidLoad(ui: IChatView)
 }
 
 final class ChatPresenter {
@@ -49,6 +49,8 @@ extension ChatPresenter: IChatPresenter {
         self.interactor.saveChat()
     }
 }
+
+// MARK: - IChatInteractorOuter
 
 extension ChatPresenter: IChatInteractorOuter {
     func showMessages(_ messages: [Message]) {

@@ -103,15 +103,6 @@ final class StartView: UIView {
         return myView
     }()
 
-//    private lazy var activityIndicatorView: UIActivityIndicatorView = {
-//        let myActivityIndicatoyView = UIActivityIndicatorView()
-//        myActivityIndicatoyView.hidesWhenStopped = true
-//        myActivityIndicatoyView.style = .large
-//        myActivityIndicatoyView.color = .black
-//        myActivityIndicatoyView.startAnimating()
-//        return myActivityIndicatoyView
-//    }()
-
     private lazy var activityIndicatorView: UIImageView = {
         let myImageView = UIImageView()
         let tintedImage = AppConstants.Images.activityIndicator?.withRenderingMode(.alwaysTemplate)
@@ -211,13 +202,17 @@ private extension StartView {
         self.loginButton.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            self.loginButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
-            self.loginButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor,
-                                                      constant: AppConstants.Constraints.normal),
-            self.loginButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor,
-                                                       constant: -AppConstants.Constraints.normal),
-            self.loginButton.heightAnchor.constraint(equalTo: self.heightAnchor,
-                                                     multiplier: Constants.buttonHeightMultiplier)
+            self.loginButton.topAnchor.constraint(
+                equalTo: self.safeAreaLayoutGuide.bottomAnchor),
+            self.loginButton.leadingAnchor.constraint(
+                equalTo: self.safeAreaLayoutGuide.leadingAnchor,
+                constant: AppConstants.Constraints.normal),
+            self.loginButton.trailingAnchor.constraint(
+                equalTo: self.safeAreaLayoutGuide.trailingAnchor,
+                constant: -AppConstants.Constraints.normal),
+            self.loginButton.heightAnchor.constraint(
+                equalTo: self.heightAnchor,
+                multiplier: Constants.buttonHeightMultiplier)
         ])
     }
 
@@ -269,11 +264,14 @@ private extension StartView {
         rotation.repeatCount = Float.greatestFiniteMagnitude
         self.activityIndicatorView.layer.add(rotation, forKey: "firstRotationAnimation")
 
+        let transformScale: CGFloat = 2
         UIView.animate(withDuration: duration,
                        delay: 0.0,
-                       options:[UIView.AnimationOptions.repeat, UIView.AnimationOptions.autoreverse],
+                       options:[UIView.AnimationOptions.repeat,
+                                UIView.AnimationOptions.autoreverse],
                        animations: {
-                        self.activityIndicatorView.transform = CGAffineTransform(scaleX: 2, y: 2)
+                        self.activityIndicatorView.transform = CGAffineTransform(scaleX: transformScale,
+                                                                                 y: transformScale)
                        }, completion: nil)
 
     }
@@ -286,13 +284,16 @@ private extension StartView {
         rotation.repeatCount = Float.greatestFiniteMagnitude
         self.activityIndicatorView.layer.add(rotation, forKey: "secondRotationAnimation")
 
+        let transformScale: CGFloat = 2
         UIView.animate(withDuration: duration,
                        delay: 0.0,
-                       options:[UIView.AnimationOptions.repeat, UIView.AnimationOptions.autoreverse],
+                       options:[UIView.AnimationOptions.repeat,
+                                UIView.AnimationOptions.autoreverse],
                        animations: {
                         self.activityIndicatorView.tintColor = UIColor.blue
                         self.activityIndicatorView.tintColor = UIColor.purple
-                        self.activityIndicatorView.transform = CGAffineTransform(scaleX: 2, y: 2)
+                        self.activityIndicatorView.transform = CGAffineTransform(scaleX: transformScale,
+                                                                                 y: transformScale)
                        }, completion: nil)
 
     }

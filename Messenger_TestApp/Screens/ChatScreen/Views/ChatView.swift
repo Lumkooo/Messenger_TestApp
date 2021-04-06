@@ -65,8 +65,9 @@ final class ChatView: UIView {
         let myCollectionView:UICollectionView = UICollectionView(
             frame: CGRect.zero,
             collectionViewLayout: UICollectionViewFlowLayout.init())
-        myCollectionView.register(ChatViewCollectionViewCell.self,
-                                  forCellWithReuseIdentifier: ChatViewCollectionViewCell.reuseIdentifier)
+        myCollectionView.register(
+            ChatViewCollectionViewCell.self,
+            forCellWithReuseIdentifier: ChatViewCollectionViewCell.reuseIdentifier)
         myCollectionView.backgroundColor = Constants.backgroundColor
         myCollectionView.keyboardDismissMode = .interactive
         return myCollectionView
@@ -109,9 +110,9 @@ final class ChatView: UIView {
 //        return self.messageToolbarView
 //    }
 //
-    override var canBecomeFirstResponder: Bool {
-        return true
-    }
+//    override var canBecomeFirstResponder: Bool {
+//        return true
+//    }
 
     // MARK: - Properties
 
@@ -131,16 +132,15 @@ final class ChatView: UIView {
         constant: -AppConstants.Constraints.half)
 
     private var collectionViewDataSource = ChatCollectionViewDataSource()
-    var sendButtonTapedWith: ((String)-> Void)?
-
-
     private var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         let width = UIScreen.main.bounds.size.width
         layout.estimatedItemSize = CGSize(width: width,
-                                          height: 10)
+                                          height: AppConstants.Constraints.half)
         return layout
     }()
+
+    var sendButtonTapedWith: ((String)-> Void)?
 
     // MARK: - Init
 
@@ -162,6 +162,11 @@ final class ChatView: UIView {
         guard let text = self.messageTextView.text else {
             return
         }
+
+        if text == AppConstants.Placeholders.messageTextViewPlaceholder &&
+            self.messageTextView.layer.opacity == Constants.messageTextViewDummyOpacity {
+            return
+        }
         self.sendButtonTapedWith?(text)
         self.setupMessageTextViewPlaceholder()
         self.resizeTextViewToFitText()
@@ -173,7 +178,6 @@ final class ChatView: UIView {
 
 extension ChatView: IChatView {
     func showMessages(_ messages: [Message]) {
-        // TODO: - FIX!
         self.collectionView.collectionViewLayout = self.layout
         self.collectionViewDataSource.setData(messages: messages)
         self.collectionView.reloadData()
@@ -210,7 +214,8 @@ private extension ChatView {
             self.messageToolbarView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             self.messageToolbarView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             self.textViewToolbarBottomConstraint,
-            self.messageToolbarView.heightAnchor.constraint(greaterThanOrEqualToConstant: self.minTextHeight)
+            self.messageToolbarView.heightAnchor.constraint(
+                greaterThanOrEqualToConstant: self.minTextHeight)
         ])
     }
 
@@ -253,7 +258,6 @@ private extension ChatView {
     }
 
     func setupCollectionView() {
-        // MARK: - FIX!
         self.collectionView.dataSource = self.collectionViewDataSource
         self.collectionView.delegate = self
 
@@ -387,6 +391,8 @@ private extension ChatView {
                                          animated: true)
     }
 }
+
+// MARK: - UICollectionViewDelegate
 
 extension ChatView: UICollectionViewDelegate {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

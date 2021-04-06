@@ -21,7 +21,8 @@ final class JsonLoader {
                     }
                     return
                 }
-                if let parsedResult = try? JSONDecoder().decode(ChatResponse.self, from: data) {
+                if let parsedResult = try? JSONDecoder().decode(ChatResponse.self,
+                                                                from: data) {
                     let chats = parsedResult.chats
                     DispatchQueue.main.async {
                         completion(chats)

@@ -69,7 +69,8 @@ extension ChatListTableViewDelegate: UITableViewDelegate {
         maskLayer.frame = CGRect(x: cell.bounds.origin.x,
                                  y: cell.bounds.origin.y,
                                  width: cell.bounds.width,
-                                 height: cell.bounds.height).insetBy(dx: 0, dy: AppConstants.Constraints.quarter)
+                                 height: cell.bounds.height).insetBy(dx: 0,
+                                                                     dy: AppConstants.Constraints.quarter)
         cell.layer.mask = maskLayer
     }
 

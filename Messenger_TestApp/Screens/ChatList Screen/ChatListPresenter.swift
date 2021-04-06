@@ -8,8 +8,8 @@
 import Foundation
 
 protocol IChatListPresenter {
-    func viewDidLoad(ui: IChatListView)
     func goToChat()
+    func viewDidLoad(ui: IChatListView)
 }
 
 final class ChatListPresenter {
@@ -47,6 +47,8 @@ extension ChatListPresenter: IChatListPresenter {
     }
 }
 
+// MARK: - IChatListInteractorOuter
+
 extension ChatListPresenter: IChatListInteractorOuter {
     func showChats(_ chats: [Chat]) {
         self.ui?.showChats(chats)
@@ -68,4 +70,7 @@ extension ChatListPresenter: IChatListInteractorOuter {
         self.ui?.removeChatFrom(index)
     }
 
+    func showAlert(message: String) {
+        self.router.showAlert(message: message)
+    }
 }

@@ -23,6 +23,7 @@ final class ChatListView: UIView {
     private enum Constants {
 //        Заливка: FFFFFF
         static let backgroundColor = UIColor(rgb: 0xFFFFFF)
+        static let emptyChatsFont = UIFont.systemFont(ofSize: 18, weight: .bold)
     }
 
     // MARK: - Views
@@ -31,7 +32,7 @@ final class ChatListView: UIView {
         let myLabel = UILabel()
         let emptyChatText = NSLocalizedString("emptyChats", comment: "")
         myLabel.text = emptyChatText
-        myLabel.font = .systemFont(ofSize: 18, weight: .bold)
+        myLabel.font = Constants.emptyChatsFont
         myLabel.textAlignment = .center
         myLabel.numberOfLines = 0
         return myLabel
@@ -101,11 +102,14 @@ private extension ChatListView {
         self.emptyChatLabel.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            self.emptyChatLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            self.emptyChatLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor,
-                                                         constant: AppConstants.Constraints.normal),
-            self.emptyChatLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor,
-                                                         constant: -AppConstants.Constraints.normal),
+            self.emptyChatLabel.centerYAnchor.constraint(
+                equalTo: self.centerYAnchor),
+            self.emptyChatLabel.leadingAnchor.constraint(
+                equalTo: self.leadingAnchor,
+                constant: AppConstants.Constraints.normal),
+            self.emptyChatLabel.trailingAnchor.constraint(
+                equalTo: self.trailingAnchor,
+                constant: -AppConstants.Constraints.normal),
         ])
     }
 
@@ -125,6 +129,8 @@ private extension ChatListView {
         ])
     }
 }
+
+// MARK: - IChatListTableViewDelegate
 
 extension ChatListView: IChatListTableViewDelegate {
     func didSelectRowAt(indexPath: IndexPath) {

@@ -96,6 +96,7 @@ final class ChatViewCollectionViewCell: UICollectionViewCell {
         self.messageContainerView.trailingAnchor.constraint(
             equalTo: self.contentView.trailingAnchor,
             constant: -AppConstants.Constraints.normal)]
+
     private lazy var incomingMessageContainerViewConstraints = [
         self.messageContainerView.leadingAnchor.constraint(
             equalTo: self.contentView.leadingAnchor,
@@ -103,12 +104,14 @@ final class ChatViewCollectionViewCell: UICollectionViewCell {
         self.messageContainerView.trailingAnchor.constraint(
             equalTo: self.contentView.trailingAnchor,
             constant: -self.frame.width/2)]
+
     private lazy var outgoingMessageTimeConstraints = [
         self.timeLabel.trailingAnchor.constraint(
             equalTo: self.messageContainerView.leadingAnchor,
             constant: -AppConstants.Constraints.normal),
         self.timeLabel.bottomAnchor.constraint(
             equalTo: self.messageContainerView.bottomAnchor)]
+
     private lazy var incomingMessageTimeConstraints = [
         self.timeLabel.leadingAnchor.constraint(
             equalTo: self.messageContainerView.trailingAnchor,
@@ -116,9 +119,6 @@ final class ChatViewCollectionViewCell: UICollectionViewCell {
         self.timeLabel.bottomAnchor.constraint(
             equalTo: self.messageContainerView.bottomAnchor)
     ]
-
-    var hello: String = ""
-
 
     // MARK: - Init
 
@@ -158,6 +158,7 @@ private extension ChatViewCollectionViewCell {
     func setupMutualElements() {
         self.contentView.addSubview(self.messageContainerView)
         self.messageContainerView.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
             self.messageContainerView.topAnchor.constraint(
                 equalTo: self.contentView.topAnchor,

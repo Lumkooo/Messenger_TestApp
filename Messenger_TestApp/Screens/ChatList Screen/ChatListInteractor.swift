@@ -9,17 +9,18 @@ import Foundation
 
 protocol IChatListInteractor {
     func loadInitData()
-    func didSelectCellAt(indexPath: IndexPath)
     func addChatTapped()
     func removeChatAt(_ indexPath: IndexPath)
+    func didSelectCellAt(indexPath: IndexPath)
 }
 
 protocol IChatListInteractorOuter: AnyObject {
-    func showChats(_ chats: [Chat])
     func appendChat(_ chat: Chat)
+    func showChats(_ chats: [Chat])
+    func removeChatFrom(index: Int)
+    func showAlert(message: String)
     func goToChat(delegate: IChatListInteractorDelegate)
     func goToChat(_ chat: Chat, delegate: IChatListInteractorDelegate)
-    func removeChatFrom(index: Int)
 }
 
 protocol IChatListInteractorDelegate {
@@ -43,9 +44,8 @@ extension ChatListInteractor: IChatListInteractor {
             self.chats = chats
             self.presenter?.showChats(self.chats)
         } errorCompletion: { (string) in
-            print(string)
+            self.presenter?.showAlert(message: string)
         }
-
     }
 
     func didSelectCellAt(indexPath: IndexPath) {
@@ -65,6 +65,7 @@ extension ChatListInteractor: IChatListInteractor {
             self.saveChats()
             if self.chats.isEmpty {
                 // Покажем текст, уведомляющий о том, что нет чатов
+                // и уберем tableView
                 self.presenter?.showChats(self.chats)
             }
         }
@@ -77,24 +78,22 @@ extension ChatListInteractor: IChatListInteractorDelegate {
     func saveChat(_ chat: Chat) {
 
         if self.isChatExisted(chat) {
-            let indexOfChat = self.chats.firstIndex { (existingChat) -> Bool in
-                existingChat.id == chat.id
-            }
+            let indexOfChat = self.getIndexOf(chat: chat)
             guard let index = indexOfChat else {
                 return
             }
-                if index == 0 {
-                    // Чат и так был первый, не надо ничего с ним делать
-                    self.saveChats()
-                    return
-                }
-                let chat = self.chats.remove(at: index)
-                self.presenter?.removeChatFrom(index: index)
-                self.insertChatAtFirstPosition(chat)
+            if index == 0 {
+                // Чат и так был первый, не надо ничего с ним делать
+                self.saveChats()
+                return
+            }
+            let chat = self.chats.remove(at: index)
+            self.presenter?.removeChatFrom(index: index)
+            self.insertChatAtFirstPosition(chat)
         } else {
             if self.chats.isEmpty {
                 // Если в данный момент чатов нет
-                // то надо добавить текущий и убрать с экрана текст,
+                // то надо добавить новый чат и убрать с экрана текст,
                 // уведомляющий о том
                 // что текстов не было
                 self.chats.append(chat)
@@ -121,5 +120,11 @@ private extension ChatListInteractor {
 
     func saveChats() {
         JsonLoader.saveJSON(chats: self.chats)
+    }
+
+    func getIndexOf(chat: Chat) -> Int? {
+        return self.chats.firstIndex { (existingChat) -> Bool in
+            existingChat.id == chat.id
+        }
     }
 }

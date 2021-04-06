@@ -38,8 +38,9 @@ extension ChatListTableViewDataSource: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ChatListTableViewCell.reuseIdentifier,
-                                                       for: indexPath) as? ChatListTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: ChatListTableViewCell.reuseIdentifier,
+                for: indexPath) as? ChatListTableViewCell else {
             assertionFailure("oops, error...")
             return UITableViewCell()
         }

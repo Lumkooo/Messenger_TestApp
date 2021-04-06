@@ -8,6 +8,7 @@
 import UIKit
 
 protocol IChatListRouter {
+    func showAlert(message: String)
     func showChatVC(delegate: IChatListInteractorDelegate)
     func showChatVC(_ chat: Chat, delegate: IChatListInteractorDelegate)
 }
@@ -31,7 +32,18 @@ extension ChatListRouter: IChatListRouter {
         self.presentChatVC(forChat: chat, delegate: delegate)
     }
 
-    private func presentChatVC(forChat chat: Chat, delegate: IChatListInteractorDelegate) {
+    func showAlert(message: String) {
+        let alert = UIAlertController(title: "Ошибка!",
+                                      message: message,
+                                      preferredStyle: .alert)
+        let alertYesAction = UIAlertAction(title: "Ok",
+                                           style: .default)
+        alert.addAction(alertYesAction)
+        self.vc?.present(alert, animated: true)
+    }
+
+    private func presentChatVC(forChat chat: Chat,
+                               delegate: IChatListInteractorDelegate) {
         let viewController = ChatVCAssembly.createVC(chat: chat, delegate: delegate)
         self.vc?.navigationController?.pushViewController(viewController, animated: true)
     }

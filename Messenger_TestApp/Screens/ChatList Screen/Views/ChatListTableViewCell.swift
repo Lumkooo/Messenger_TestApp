@@ -74,6 +74,9 @@ final class ChatListTableViewCell: UITableViewCell {
         if !messages.isEmpty {
             self.messageLabel.text = messages[0].text
             self.timeLabel.text = messages[0].time
+        } else {
+            self.messageLabel.text = "Ошибка! Не удалось получить сообщение"
+            self.timeLabel.text = ""
         }
     }
 }
@@ -91,26 +94,32 @@ private extension ChatListTableViewCell {
         self.messageLabel.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            self.messageLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,
-                                                       constant: AppConstants.Constraints.normal),
-            self.messageLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,
-                                                       constant: -AppConstants.Constraints.normal),
-            self.messageLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor,
-                                                       constant: AppConstants.Constraints.half)
+            self.messageLabel.leadingAnchor.constraint(
+                equalTo: self.contentView.leadingAnchor,
+                constant: AppConstants.Constraints.normal),
+            self.messageLabel.trailingAnchor.constraint(
+                equalTo: self.contentView.trailingAnchor,
+                constant: -AppConstants.Constraints.normal),
+            self.messageLabel.topAnchor.constraint(
+                equalTo: self.contentView.topAnchor,
+                constant: AppConstants.Constraints.half)
         ])
     }
 
     func setupTimeLabel() {
         self.contentView.addSubview(self.timeLabel)
         self.timeLabel.translatesAutoresizingMaskIntoConstraints = false
-
+        
         NSLayoutConstraint.activate([
-            self.timeLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,
-                                                       constant: -AppConstants.Constraints.normal),
-            self.timeLabel.topAnchor.constraint(equalTo: self.messageLabel.bottomAnchor,
-                                                       constant: AppConstants.Constraints.quarter),
-            self.timeLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor,
-                                                       constant: -AppConstants.Constraints.normal)
+            self.timeLabel.trailingAnchor.constraint(
+                equalTo: self.contentView.trailingAnchor,
+                constant: -AppConstants.Constraints.normal),
+            self.timeLabel.topAnchor.constraint(
+                equalTo: self.messageLabel.bottomAnchor,
+                constant: AppConstants.Constraints.quarter),
+            self.timeLabel.bottomAnchor.constraint(
+                equalTo: self.contentView.bottomAnchor,
+                constant: -AppConstants.Constraints.normal)
         ])
     }
 }

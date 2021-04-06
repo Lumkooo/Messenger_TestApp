@@ -21,6 +21,7 @@ final class StartRouter {
 extension StartRouter: IStartRouter {
     func goToChatListVC() {
         let chatListViewController = ChatListVCAssembly.createVC()
-        self.vc?.navigationController?.pushViewController(chatListViewController, animated: true)
+        self.vc?.navigationController?.pushViewController(chatListViewController,
+                                                          animated: true)
     }
 }
