@@ -29,7 +29,8 @@ final class ChatListView: UIView {
 
     private lazy var emptyChatLabel: UILabel = {
         let myLabel = UILabel()
-        myLabel.text = "На данный момент чаты отсутствуют.\nМожете создать новый, нажав на \" + \" в правом верхнем углу "
+        let emptyChatText = NSLocalizedString("emptyChats", comment: "")
+        myLabel.text = emptyChatText
         myLabel.font = .systemFont(ofSize: 18, weight: .bold)
         myLabel.textAlignment = .center
         myLabel.numberOfLines = 0

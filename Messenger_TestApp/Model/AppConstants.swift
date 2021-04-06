@@ -15,6 +15,7 @@ enum AppConstants {
         static let startImage = UIImage(named: "StartScreen")
         static let iconSend = UIImage(named: "iconSend")
         static let iconDelete = UIImage(named: "iconDelete")
+        static let activityIndicator = UIImage(named: "activityIndicator")
     }
 
     // MARK: - Constraints
@@ -30,6 +31,6 @@ enum AppConstants {
     // MARK: - Placeholders
 
     enum Placeholders {
-        static let messageTextViewPlaceholder = "Введите сообщение..."
+        static let messageTextViewPlaceholder = NSLocalizedString("enterMessage", comment: "")
     }
 }

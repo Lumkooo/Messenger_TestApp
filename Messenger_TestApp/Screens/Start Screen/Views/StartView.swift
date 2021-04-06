@@ -62,6 +62,8 @@ final class StartView: UIView {
         static let loadingViewAlpha: CGFloat = 0.4
         static let loadingViewAnimationDuration: Double = 0.3
         static let loadingViewDuration: Double = 1
+
+        static let animationDuration: Double = 0.5
     }
 
     // MARK: - Views
@@ -86,7 +88,8 @@ final class StartView: UIView {
         myButton.layer.shadowRadius = Constants.loginButtonShadowRadius
         myButton.titleLabel?.font = Constants.loginButtonTextFont
         myButton.titleLabel?.textColor = Constants.loginButtonTextColor
-        myButton.setTitle("Войти", for: .normal)
+        let loginText = NSLocalizedString("login", comment: "")
+        myButton.setTitle(loginText, for: .normal)
         myButton.alpha = 0
         myButton.addTarget(self,
                            action: #selector(self.loginButtonTapped(gesture:)),
@@ -100,13 +103,20 @@ final class StartView: UIView {
         return myView
     }()
 
-    private lazy var activityIndicatorView: UIActivityIndicatorView = {
-        let myActivityIndicatoyView = UIActivityIndicatorView()
-        myActivityIndicatoyView.hidesWhenStopped = true
-        myActivityIndicatoyView.style = .large
-        myActivityIndicatoyView.color = .black
-        myActivityIndicatoyView.startAnimating()
-        return myActivityIndicatoyView
+//    private lazy var activityIndicatorView: UIActivityIndicatorView = {
+//        let myActivityIndicatoyView = UIActivityIndicatorView()
+//        myActivityIndicatoyView.hidesWhenStopped = true
+//        myActivityIndicatoyView.style = .large
+//        myActivityIndicatoyView.color = .black
+//        myActivityIndicatoyView.startAnimating()
+//        return myActivityIndicatoyView
+//    }()
+
+    private lazy var activityIndicatorView: UIImageView = {
+        let myImageView = UIImageView()
+        let tintedImage = AppConstants.Images.activityIndicator?.withRenderingMode(.alwaysTemplate)
+        myImageView.image = tintedImage
+        return myImageView
     }()
 
     // MARK: - Proeprties
@@ -132,7 +142,14 @@ final class StartView: UIView {
         self.setupLoadingView()
         self.loadingView.transform = CGAffineTransform(translationX: 0, y: -self.frame.height)
         UIView.animate(withDuration: Constants.loadingViewAnimationDuration) {
+        }
+
+        UIView.animate(withDuration: Constants.loadingViewAnimationDuration) {
             self.loadingView.transform = CGAffineTransform(translationX: 0, y: 0)
+        } completion: { (bool) in
+//            self.firstAnimation()
+//            self.secondAnimation()
+            self.thirdAnimation()
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.loadingViewDuration) {
             self.loginButton.isEnabled = true
@@ -225,5 +242,58 @@ private extension StartView {
             self.activityIndicatorView.centerXAnchor.constraint(equalTo: self.loadingView.centerXAnchor),
             self.activityIndicatorView.centerYAnchor.constraint(equalTo: self.loadingView.centerYAnchor)
         ])
+    }
+}
+
+// MARK: - Animations
+
+// 1*. Сделать 3-4 возможных анимаций на индикатор загрузки, чтобы помимо вращения он дополнительно мог менять размер, менять цвет, переливаться градиентом и др.
+
+private extension StartView {
+    func firstAnimation(duration: Double = Constants.animationDuration) {
+        UIView.animate(withDuration: duration,
+                       delay: 0.0,
+                       options:[UIView.AnimationOptions.repeat, UIView.AnimationOptions.autoreverse],
+                       animations: {
+                        self.activityIndicatorView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
+                        self.activityIndicatorView.tintColor = UIColor.yellow
+                        self.activityIndicatorView.tintColor = UIColor.red
+                       }, completion: nil)
+    }
+
+    func secondAnimation(duration: Double = Constants.animationDuration) {
+        let rotation : CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation")
+        rotation.toValue = NSNumber(value: Double.pi * 2)
+        rotation.duration = duration
+        rotation.timingFunction = .init(name: .easeInEaseOut)
+        rotation.repeatCount = Float.greatestFiniteMagnitude
+        self.activityIndicatorView.layer.add(rotation, forKey: "firstRotationAnimation")
+
+        UIView.animate(withDuration: duration,
+                       delay: 0.0,
+                       options:[UIView.AnimationOptions.repeat, UIView.AnimationOptions.autoreverse],
+                       animations: {
+                        self.activityIndicatorView.transform = CGAffineTransform(scaleX: 2, y: 2)
+                       }, completion: nil)
+
+    }
+
+    func thirdAnimation(duration: Double = Constants.animationDuration) {
+        let rotation : CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation")
+        rotation.toValue = NSNumber(value: Double.pi * 2)
+        rotation.duration = duration
+        rotation.timingFunction = .init(name: .easeOut)
+        rotation.repeatCount = Float.greatestFiniteMagnitude
+        self.activityIndicatorView.layer.add(rotation, forKey: "secondRotationAnimation")
+
+        UIView.animate(withDuration: duration,
+                       delay: 0.0,
+                       options:[UIView.AnimationOptions.repeat, UIView.AnimationOptions.autoreverse],
+                       animations: {
+                        self.activityIndicatorView.tintColor = UIColor.blue
+                        self.activityIndicatorView.tintColor = UIColor.purple
+                        self.activityIndicatorView.transform = CGAffineTransform(scaleX: 2, y: 2)
+                       }, completion: nil)
+
     }
 }

@@ -10,7 +10,6 @@
 		CE2293C8261AC8BA005ECDBB /* ChatListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2293C7261AC8BA005ECDBB /* ChatListTableViewCell.swift */; };
 		CE2293CE261ACBE9005ECDBB /* ChatListTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2293CD261ACBE8005ECDBB /* ChatListTableViewDelegate.swift */; };
 		CE2293D6261ACBF6005ECDBB /* ChatListTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2293D5261ACBF6005ECDBB /* ChatListTableViewDataSource.swift */; };
-		CE8E5D29261C317C0053C482 /* Data.json in Resources */ = {isa = PBXBuildFile; fileRef = CE8E5D28261C317C0053C482 /* Data.json */; };
 		CE8E5D31261C32380053C482 /* JsonLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E5D30261C32380053C482 /* JsonLoader.swift */; };
 		CE8E5D3C261C36310053C482 /* ChatResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E5D3B261C36310053C482 /* ChatResponse.swift */; };
 		CEC2854626197EF7007472AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2854526197EF7007472AB /* AppDelegate.swift */; };
@@ -45,6 +44,7 @@
 		CEC285D52619806F007472AB /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC285C62619806F007472AB /* ChatView.swift */; };
 		CEC285ED261982A9007472AB /* ChatViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC285EC261982A9007472AB /* ChatViewCollectionViewCell.swift */; };
 		CEC285F426199E79007472AB /* ChatCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC285F326199E78007472AB /* ChatCollectionViewDataSource.swift */; };
+		CECE52CB261C8FCA0057CB8E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CECE52CD261C8FCA0057CB8E /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,7 +68,6 @@
 		CE2293C7261AC8BA005ECDBB /* ChatListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTableViewCell.swift; sourceTree = "<group>"; };
 		CE2293CD261ACBE8005ECDBB /* ChatListTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTableViewDelegate.swift; sourceTree = "<group>"; };
 		CE2293D5261ACBF6005ECDBB /* ChatListTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTableViewDataSource.swift; sourceTree = "<group>"; };
-		CE8E5D28261C317C0053C482 /* Data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Data.json; sourceTree = "<group>"; };
 		CE8E5D30261C32380053C482 /* JsonLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonLoader.swift; sourceTree = "<group>"; };
 		CE8E5D3B261C36310053C482 /* ChatResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatResponse.swift; sourceTree = "<group>"; };
 		CEC2854226197EF7007472AB /* Messenger_TestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger_TestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,6 +108,9 @@
 		CEC285C62619806F007472AB /* ChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		CEC285EC261982A9007472AB /* ChatViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewCollectionViewCell.swift; sourceTree = "<group>"; };
 		CEC285F326199E78007472AB /* ChatCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCollectionViewDataSource.swift; sourceTree = "<group>"; };
+		CECE52CC261C8FCA0057CB8E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CECE52D1261C900A0057CB8E /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		CECE52D2261C900A0057CB8E /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +170,7 @@
 		CEC2854426197EF7007472AB /* Messenger_TestApp */ = {
 			isa = PBXGroup;
 			children = (
+				CECE52CD261C8FCA0057CB8E /* Localizable.strings */,
 				CEC2858C26198038007472AB /* Assembly */,
 				CEC2857E26197F26007472AB /* App */,
 				CEC2858326197F40007472AB /* CoreData */,
@@ -250,7 +253,6 @@
 			children = (
 				CEC285AA26198065007472AB /* UIColorExtension.swift */,
 				CEC285AB26198065007472AB /* AppConstants.swift */,
-				CE8E5D28261C317C0053C482 /* Data.json */,
 				CE8E5D30261C32380053C482 /* JsonLoader.swift */,
 				CEC285FD26199E93007472AB /* ChatView collectionView Model */,
 				CE2293CC261ACBD7005ECDBB /* ChatList tableView Model */,
@@ -423,6 +425,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = CEC2853926197EF7007472AB;
 			productRefGroup = CEC2854326197EF7007472AB /* Products */;
@@ -442,8 +445,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEC2855526197EF9007472AB /* LaunchScreen.storyboard in Resources */,
+				CECE52CB261C8FCA0057CB8E /* Localizable.strings in Resources */,
 				CEC2855226197EF9007472AB /* Assets.xcassets in Resources */,
-				CE8E5D29261C317C0053C482 /* Data.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -540,8 +543,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				CEC2855426197EF9007472AB /* Base */,
+				CECE52D1261C900A0057CB8E /* ru */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		CECE52CD261C8FCA0057CB8E /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CECE52CC261C8FCA0057CB8E /* en */,
+				CECE52D2261C900A0057CB8E /* ru */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -551,6 +564,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -612,6 +626,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

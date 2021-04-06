@@ -221,7 +221,7 @@ private extension ChatView {
         NSLayoutConstraint.activate([
             self.sendButton.bottomAnchor.constraint(
                 equalTo: self.messageToolbarView.safeAreaLayoutGuide.bottomAnchor,
-                constant: -AppConstants.Constraints.half),
+                constant: -AppConstants.Constraints.normal),
             self.sendButton.trailingAnchor.constraint(
                 equalTo: self.messageToolbarView.safeAreaLayoutGuide.trailingAnchor,
                 constant: -AppConstants.Constraints.half),
@@ -242,9 +242,11 @@ private extension ChatView {
                 equalTo: self.sendButton.leadingAnchor,
                 constant: -AppConstants.Constraints.half),
             self.messageTextView.topAnchor.constraint(
-                equalTo: self.messageToolbarView.topAnchor),
+                equalTo: self.messageToolbarView.topAnchor,
+                constant: AppConstants.Constraints.half),
             self.messageTextView.bottomAnchor.constraint(
-                equalTo: self.messageToolbarView.safeAreaLayoutGuide.bottomAnchor),
+                equalTo: self.messageToolbarView.safeAreaLayoutGuide.bottomAnchor,
+                constant: -AppConstants.Constraints.half),
             self.textViewHeightConstraint
         ])
         self.resizeTextViewToFitText()

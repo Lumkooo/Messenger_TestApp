@@ -34,7 +34,7 @@ final class JsonLoader {
             }
         }
     }
-
+    
     static func saveJSON(chats: [Chat]) {
         DispatchQueue.global(qos: .userInitiated).async {
             do {

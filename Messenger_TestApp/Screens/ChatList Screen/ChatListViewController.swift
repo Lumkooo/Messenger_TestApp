@@ -19,7 +19,8 @@ final class ChatListViewController: UIViewController {
     init(presenter: IChatListPresenter) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
-        self.title = "Чаты"
+        let chats = NSLocalizedString("chats", comment: "")
+        self.title = chats
         self.setupAddButton()
     }
 
