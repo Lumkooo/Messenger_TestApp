@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class Chat {
+final class Chat: Decodable, Encodable {
 
     // MARK: - Properties
 
@@ -24,5 +24,12 @@ final class Chat {
     init() {
         self.id = UUID().uuidString
         self.messages = []
+    }
+
+    // MARK: - CodingKeys
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case messages
     }
 }

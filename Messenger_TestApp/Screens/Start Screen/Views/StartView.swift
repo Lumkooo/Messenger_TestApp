@@ -103,6 +103,8 @@ final class StartView: UIView {
     private lazy var activityIndicatorView: UIActivityIndicatorView = {
         let myActivityIndicatoyView = UIActivityIndicatorView()
         myActivityIndicatoyView.hidesWhenStopped = true
+        myActivityIndicatoyView.style = .large
+        myActivityIndicatoyView.color = .black
         myActivityIndicatoyView.startAnimating()
         return myActivityIndicatoyView
     }()

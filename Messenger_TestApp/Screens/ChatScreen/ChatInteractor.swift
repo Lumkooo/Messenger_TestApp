@@ -66,8 +66,8 @@ extension ChatInteractor: IChatInteractor {
     }
 
     func saveChat() {
-        if !self.chat.messages.isEmpty {
-            self.delegate.saveChat(self.chat, isChatChaged: self.isChatChanged)
+        if self.isChatChanged {
+            self.delegate.saveChat(self.chat)
         }
     }
 }

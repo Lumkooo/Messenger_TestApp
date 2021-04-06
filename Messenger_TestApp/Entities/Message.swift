@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class Message {
+final class Message: Decodable, Encodable {
 
     // MARK: - Properties
 
@@ -19,10 +19,25 @@ final class Message {
 
     // MARK: - Init
 
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.text = try container.decode(String.self, forKey: .text)
+        self.time = try container.decode(String.self, forKey: .time)
+        self.isOutgoing = try container.decode(Bool.self, forKey: .isOutgoing)
+    }
+
     init(text: String, time: String, isOutgoing: Bool) {
         self.text = text
         self.time = time
         self.isOutgoing = isOutgoing
+    }
+
+    // MARK: - CodingKeys
+
+    enum CodingKeys: String, CodingKey {
+        case text
+        case time
+        case isOutgoing
     }
 }
 

@@ -10,6 +10,9 @@
 		CE2293C8261AC8BA005ECDBB /* ChatListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2293C7261AC8BA005ECDBB /* ChatListTableViewCell.swift */; };
 		CE2293CE261ACBE9005ECDBB /* ChatListTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2293CD261ACBE8005ECDBB /* ChatListTableViewDelegate.swift */; };
 		CE2293D6261ACBF6005ECDBB /* ChatListTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2293D5261ACBF6005ECDBB /* ChatListTableViewDataSource.swift */; };
+		CE8E5D29261C317C0053C482 /* Data.json in Resources */ = {isa = PBXBuildFile; fileRef = CE8E5D28261C317C0053C482 /* Data.json */; };
+		CE8E5D31261C32380053C482 /* JsonLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E5D30261C32380053C482 /* JsonLoader.swift */; };
+		CE8E5D3C261C36310053C482 /* ChatResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E5D3B261C36310053C482 /* ChatResponse.swift */; };
 		CEC2854626197EF7007472AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2854526197EF7007472AB /* AppDelegate.swift */; };
 		CEC2854826197EF7007472AB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2854726197EF7007472AB /* SceneDelegate.swift */; };
 		CEC2855026197EF7007472AB /* Messenger_TestApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CEC2854E26197EF7007472AB /* Messenger_TestApp.xcdatamodeld */; };
@@ -65,6 +68,9 @@
 		CE2293C7261AC8BA005ECDBB /* ChatListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTableViewCell.swift; sourceTree = "<group>"; };
 		CE2293CD261ACBE8005ECDBB /* ChatListTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTableViewDelegate.swift; sourceTree = "<group>"; };
 		CE2293D5261ACBF6005ECDBB /* ChatListTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTableViewDataSource.swift; sourceTree = "<group>"; };
+		CE8E5D28261C317C0053C482 /* Data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Data.json; sourceTree = "<group>"; };
+		CE8E5D30261C32380053C482 /* JsonLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonLoader.swift; sourceTree = "<group>"; };
+		CE8E5D3B261C36310053C482 /* ChatResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatResponse.swift; sourceTree = "<group>"; };
 		CEC2854226197EF7007472AB /* Messenger_TestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger_TestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEC2854526197EF7007472AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEC2854726197EF7007472AB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -232,6 +238,7 @@
 		CEC285A12619805A007472AB /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				CE8E5D3B261C36310053C482 /* ChatResponse.swift */,
 				CEC285A22619805A007472AB /* Chat.swift */,
 				CEC285A32619805A007472AB /* Message.swift */,
 			);
@@ -243,6 +250,8 @@
 			children = (
 				CEC285AA26198065007472AB /* UIColorExtension.swift */,
 				CEC285AB26198065007472AB /* AppConstants.swift */,
+				CE8E5D28261C317C0053C482 /* Data.json */,
+				CE8E5D30261C32380053C482 /* JsonLoader.swift */,
 				CEC285FD26199E93007472AB /* ChatView collectionView Model */,
 				CE2293CC261ACBD7005ECDBB /* ChatList tableView Model */,
 			);
@@ -434,6 +443,7 @@
 			files = (
 				CEC2855526197EF9007472AB /* LaunchScreen.storyboard in Resources */,
 				CEC2855226197EF9007472AB /* Assets.xcassets in Resources */,
+				CE8E5D29261C317C0053C482 /* Data.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,6 +481,8 @@
 				CEC285C92619806F007472AB /* ChatListViewController.swift in Sources */,
 				CEC285D22619806F007472AB /* ChatRouter.swift in Sources */,
 				CEC285CA2619806F007472AB /* ChatListRouter.swift in Sources */,
+				CE8E5D31261C32380053C482 /* JsonLoader.swift in Sources */,
+				CE8E5D3C261C36310053C482 /* ChatResponse.swift in Sources */,
 				CEC2854826197EF7007472AB /* SceneDelegate.swift in Sources */,
 				CEC285AD26198065007472AB /* AppConstants.swift in Sources */,
 				CEC285F426199E79007472AB /* ChatCollectionViewDataSource.swift in Sources */,
