@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  Messenger_TestApp
+
+  Created by Андрей Шамин on 4/6/21.
+  
+*/
+
+"login" = "Login";
+"chats" = "Chats";
+"emptyChats" = "There are currently no chats.\nYou can create a new one by clicking on the\"+ \" in the upper right corner";
+"chat" = "Chat";
+"enterMessage" = "Message...";
