@@ -62,6 +62,10 @@ extension ChatListInteractor: IChatListInteractor {
     func removeChatAt(_ indexPath: IndexPath) {
         if self.chats.count > indexPath.row {
             self.chats.remove(at: indexPath.row)
+            if self.chats.isEmpty {
+                // Покажем текст, уведомляющий о том, что нет чатов
+                self.presenter?.showChats(self.chats)
+            }
         }
     }
 }
@@ -92,7 +96,16 @@ extension ChatListInteractor: IChatListInteractorDelegate {
                 // Чат не был изменен
             }
         } else {
-            self.insertChatAtFirstPosition(chat)
+            if self.chats.isEmpty {
+                // Если в данный момент чатов нет
+                // то надо добавить текущий и убрать с экрана текст,
+                // уведомляющий о том
+                // что текстов не было
+                self.chats.append(chat)
+                self.presenter?.showChats(self.chats)
+            } else {
+                self.insertChatAtFirstPosition(chat)
+            }
         }
     }
 }

@@ -25,7 +25,6 @@ final class ChatView: UIView {
         static let backgroundColor = UIColor(rgb: 0xF4F3F3)
 
         static let messageTextViewAnimationDuration: Double = 0.3
-        static let messageTextViewPlaceholder = "Введите сообщение..."
 
 //        Тулбар ввода сообщения:
 //            Заливка: FFFFFF
@@ -76,7 +75,7 @@ final class ChatView: UIView {
     private lazy var messageTextView: UITextView = {
         let myTextView = UITextView()
         myTextView.delegate = self
-        myTextView.text = Constants.messageTextViewPlaceholder
+        myTextView.text = AppConstants.Placeholders.messageTextViewPlaceholder
         myTextView.backgroundColor = Constants.messageTextViewBackgroundColor
         myTextView.layer.cornerRadius = Constants.messageTextViewCornerRadius
         myTextView.textColor = Constants.messageTextViewTextColor
@@ -330,7 +329,7 @@ private extension ChatView {
     func setupMessageTextViewPlaceholder() {
         self.messageTextView.layer.opacity = Constants.messageTextViewDummyOpacity
         self.messageTextView.font = Constants.messageTextViewFont
-        self.messageTextView.text = Constants.messageTextViewPlaceholder
+        self.messageTextView.text = AppConstants.Placeholders.messageTextViewPlaceholder
     }
 
     func setupTapToHideKeyboard() {

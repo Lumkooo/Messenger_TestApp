@@ -57,6 +57,11 @@ final class StartView: UIView {
         static let loginButtonTextFont: UIFont = .systemFont(ofSize: 18, weight: .bold)
         static let loginButtonTextColor = UIColor(rgb: 0xFFFFFF)
         static let loginButtonAnimationDuration: Double = 0.5
+
+
+        static let loadingViewAlpha: CGFloat = 0.4
+        static let loadingViewAnimationDuration: Double = 0.3
+        static let loadingViewDuration: Double = 1
     }
 
     // MARK: - Views
@@ -89,6 +94,19 @@ final class StartView: UIView {
         return myButton
     }()
 
+    private lazy var loadingView: UIView = {
+        let myView = UIView()
+        myView.backgroundColor = UIColor.white.withAlphaComponent(Constants.loadingViewAlpha)
+        return myView
+    }()
+
+    private lazy var activityIndicatorView: UIActivityIndicatorView = {
+        let myActivityIndicatoyView = UIActivityIndicatorView()
+        myActivityIndicatoyView.hidesWhenStopped = true
+        myActivityIndicatoyView.startAnimating()
+        return myActivityIndicatoyView
+    }()
+
     // MARK: - Proeprties
 
     var loginButtonTapped: (()-> Void)?
@@ -108,7 +126,17 @@ final class StartView: UIView {
     // MARK: - Обработка нажатия на кнопки
 
     @objc private func loginButtonTapped(gesture: UIGestureRecognizer) {
-        self.loginButtonTapped?()
+        self.loginButton.isEnabled = false
+        self.setupLoadingView()
+        self.loadingView.transform = CGAffineTransform(translationX: 0, y: -self.frame.height)
+        UIView.animate(withDuration: Constants.loadingViewAnimationDuration) {
+            self.loadingView.transform = CGAffineTransform(translationX: 0, y: 0)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.loadingViewDuration) {
+            self.loginButton.isEnabled = true
+            self.loadingView.removeFromSuperview()
+            self.loginButtonTapped?()
+        }
     }
 
     // MARK: - layouSubviews
@@ -171,6 +199,29 @@ private extension StartView {
                                                        constant: -AppConstants.Constraints.normal),
             self.loginButton.heightAnchor.constraint(equalTo: self.heightAnchor,
                                                      multiplier: Constants.buttonHeightMultiplier)
+        ])
+    }
+
+    func setupLoadingView() {
+        self.addSubview(self.loadingView)
+        self.loadingView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            self.loadingView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            self.loadingView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            self.loadingView.topAnchor.constraint(equalTo: self.topAnchor),
+            self.loadingView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        ])
+        self.setupActivityIndicatorView()
+    }
+
+    func setupActivityIndicatorView() {
+        self.loadingView.addSubview(self.activityIndicatorView)
+        self.activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            self.activityIndicatorView.centerXAnchor.constraint(equalTo: self.loadingView.centerXAnchor),
+            self.activityIndicatorView.centerYAnchor.constraint(equalTo: self.loadingView.centerYAnchor)
         ])
     }
 }

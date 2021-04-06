@@ -164,11 +164,11 @@
 			children = (
 				CEC2858C26198038007472AB /* Assembly */,
 				CEC2857E26197F26007472AB /* App */,
+				CEC2858326197F40007472AB /* CoreData */,
 				CEC285A926198065007472AB /* Model */,
 				CEC285A12619805A007472AB /* Entities */,
 				CEC285B12619806F007472AB /* Screens */,
 				CEC2858226197F2E007472AB /* Resources */,
-				CEC2858326197F40007472AB /* CoreData */,
 			);
 			path = Messenger_TestApp;
 			sourceTree = "<group>";

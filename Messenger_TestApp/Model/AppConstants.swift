@@ -26,4 +26,10 @@ enum AppConstants {
         static let twice: CGFloat = 32.0
         static let fourTimes: CGFloat = 64.0
     }
+
+    // MARK: - Placeholders
+
+    enum Placeholders {
+        static let messageTextViewPlaceholder = "Введите сообщение..."
+    }
 }

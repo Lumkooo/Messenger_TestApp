@@ -49,9 +49,15 @@ extension ChatInteractor: IChatInteractor {
     }
 
     func appendTextToChat(_ messageText: String) {
+        let trimmedMessage = self.trimmText(messageText)
+        if trimmedMessage.isEmpty ||
+            trimmedMessage == AppConstants.Placeholders.messageTextViewPlaceholder {
+            return
+        }
         let time = self.getCurrentTime()
         let isOutgoing = self.isMessageOutgoing()
-        let message = Message(text: messageText,
+
+        let message = Message(text: trimmedMessage,
                               time: time,
                               isOutgoing: isOutgoing)
         self.chat.messages.append(message)
@@ -85,5 +91,12 @@ private extension ChatInteractor {
 
     func isMessageOutgoing() -> Bool {
         return arc4random_uniform(2) == 0
+    }
+
+//    12. Набранное сообщение должно обрезаться от пробелов и переходов на новую строку с начала и с конца. Если сообщение пустое оно отправляться не должно.
+
+    func trimmText(_ text: String) -> String {
+        let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmedText
     }
 }

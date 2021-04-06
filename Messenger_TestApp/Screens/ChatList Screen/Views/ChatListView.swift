@@ -74,6 +74,8 @@ extension ChatListView: IChatListView {
             self.emptyChatLabel.removeFromSuperview()
             self.setupTableView()
             self.chatListTableViewDataSource.setData(chats: chats)
+            let indexPath = IndexPath(row: 0, section: 0)
+            self.tableView.insertRows(at: [indexPath], with: .left)
         }
     }
 
