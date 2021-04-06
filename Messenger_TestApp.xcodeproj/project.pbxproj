@@ -10,6 +10,11 @@
 		CE2293C8261AC8BA005ECDBB /* ChatListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2293C7261AC8BA005ECDBB /* ChatListTableViewCell.swift */; };
 		CE2293CE261ACBE9005ECDBB /* ChatListTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2293CD261ACBE8005ECDBB /* ChatListTableViewDelegate.swift */; };
 		CE2293D6261ACBF6005ECDBB /* ChatListTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2293D5261ACBF6005ECDBB /* ChatListTableViewDataSource.swift */; };
+		CE8E5D09261C0C160053C482 /* CoreDataMessage+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E5D05261C0C160053C482 /* CoreDataMessage+CoreDataClass.swift */; };
+		CE8E5D0A261C0C160053C482 /* CoreDataMessage+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E5D06261C0C160053C482 /* CoreDataMessage+CoreDataProperties.swift */; };
+		CE8E5D0B261C0C160053C482 /* CoreDataChat+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E5D07261C0C160053C482 /* CoreDataChat+CoreDataClass.swift */; };
+		CE8E5D0C261C0C160053C482 /* CoreDataChat+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E5D08261C0C160053C482 /* CoreDataChat+CoreDataProperties.swift */; };
+		CE8E5D11261C0C480053C482 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E5D10261C0C480053C482 /* CoreDataManager.swift */; };
 		CEC2854626197EF7007472AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2854526197EF7007472AB /* AppDelegate.swift */; };
 		CEC2854826197EF7007472AB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2854726197EF7007472AB /* SceneDelegate.swift */; };
 		CEC2855026197EF7007472AB /* Messenger_TestApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CEC2854E26197EF7007472AB /* Messenger_TestApp.xcdatamodeld */; };
@@ -65,6 +70,11 @@
 		CE2293C7261AC8BA005ECDBB /* ChatListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTableViewCell.swift; sourceTree = "<group>"; };
 		CE2293CD261ACBE8005ECDBB /* ChatListTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTableViewDelegate.swift; sourceTree = "<group>"; };
 		CE2293D5261ACBF6005ECDBB /* ChatListTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTableViewDataSource.swift; sourceTree = "<group>"; };
+		CE8E5D05261C0C160053C482 /* CoreDataMessage+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataMessage+CoreDataClass.swift"; sourceTree = "<group>"; };
+		CE8E5D06261C0C160053C482 /* CoreDataMessage+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataMessage+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		CE8E5D07261C0C160053C482 /* CoreDataChat+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataChat+CoreDataClass.swift"; sourceTree = "<group>"; };
+		CE8E5D08261C0C160053C482 /* CoreDataChat+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataChat+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		CE8E5D10261C0C480053C482 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		CEC2854226197EF7007472AB /* Messenger_TestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger_TestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEC2854526197EF7007472AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEC2854726197EF7007472AB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -137,6 +147,17 @@
 				CE2293D5261ACBF6005ECDBB /* ChatListTableViewDataSource.swift */,
 			);
 			path = "ChatList tableView Model";
+			sourceTree = "<group>";
+		};
+		CE8E5CFE261C0BA50053C482 /* CoreData Entities */ = {
+			isa = PBXGroup;
+			children = (
+				CE8E5D05261C0C160053C482 /* CoreDataMessage+CoreDataClass.swift */,
+				CE8E5D06261C0C160053C482 /* CoreDataMessage+CoreDataProperties.swift */,
+				CE8E5D07261C0C160053C482 /* CoreDataChat+CoreDataClass.swift */,
+				CE8E5D08261C0C160053C482 /* CoreDataChat+CoreDataProperties.swift */,
+			);
+			path = "CoreData Entities";
 			sourceTree = "<group>";
 		};
 		CEC2853926197EF7007472AB = {
@@ -213,7 +234,9 @@
 		CEC2858326197F40007472AB /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				CE8E5CFE261C0BA50053C482 /* CoreData Entities */,
 				CEC2854E26197EF7007472AB /* Messenger_TestApp.xcdatamodeld */,
+				CE8E5D10261C0C480053C482 /* CoreDataManager.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -463,8 +486,11 @@
 				CEC285ED261982A9007472AB /* ChatViewCollectionViewCell.swift in Sources */,
 				CEC285D12619806F007472AB /* ChatViewController.swift in Sources */,
 				CEC2859226198041007472AB /* ChatVCAssembly.swift in Sources */,
+				CE8E5D0C261C0C160053C482 /* CoreDataChat+CoreDataProperties.swift in Sources */,
+				CE8E5D11261C0C480053C482 /* CoreDataManager.swift in Sources */,
 				CEC285C82619806F007472AB /* ChatListPresenter.swift in Sources */,
 				CEC285C72619806F007472AB /* ChatListInteractor.swift in Sources */,
+				CE8E5D0A261C0C160053C482 /* CoreDataMessage+CoreDataProperties.swift in Sources */,
 				CEC285D52619806F007472AB /* ChatView.swift in Sources */,
 				CEC285CB2619806F007472AB /* ChatListView.swift in Sources */,
 				CEC285D02619806F007472AB /* StartView.swift in Sources */,
@@ -477,6 +503,7 @@
 				CE2293D6261ACBF6005ECDBB /* ChatListTableViewDataSource.swift in Sources */,
 				CEC285A52619805A007472AB /* Message.swift in Sources */,
 				CEC285CC2619806F007472AB /* StartViewController.swift in Sources */,
+				CE8E5D0B261C0C160053C482 /* CoreDataChat+CoreDataClass.swift in Sources */,
 				CEC2859126198041007472AB /* ChatListVCAssembly.swift in Sources */,
 				CEC2859326198041007472AB /* NavigationControllerAssembly.swift in Sources */,
 				CE2293C8261AC8BA005ECDBB /* ChatListTableViewCell.swift in Sources */,
@@ -484,6 +511,7 @@
 				CEC285D32619806F007472AB /* ChatInteractor.swift in Sources */,
 				CE2293CE261ACBE9005ECDBB /* ChatListTableViewDelegate.swift in Sources */,
 				CEC285CF2619806F007472AB /* StartRouter.swift in Sources */,
+				CE8E5D09261C0C160053C482 /* CoreDataMessage+CoreDataClass.swift in Sources */,
 				CEC285A42619805A007472AB /* Chat.swift in Sources */,
 				CEC285AC26198065007472AB /* UIColorExtension.swift in Sources */,
 				CEC2855026197EF7007472AB /* Messenger_TestApp.xcdatamodeld in Sources */,

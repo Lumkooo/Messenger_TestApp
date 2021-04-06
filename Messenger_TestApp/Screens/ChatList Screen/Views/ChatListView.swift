@@ -88,7 +88,7 @@ extension ChatListView: IChatListView {
 
     func removeChatFrom(_ index: Int) {
         let indexPath = IndexPath(row: index, section: 0)
-        self.chatListTableViewDataSource.removeMessageAt(indexPath)
+        self.chatListTableViewDataSource.removeChatAt(indexPath)
         self.tableView.deleteRows(at: [indexPath], with: .left)
     }
 }
@@ -135,6 +135,6 @@ extension ChatListView: IChatListTableViewDelegate {
 
     func removeRowAt(at indexPath: IndexPath) {
         self.removeRowAt?(indexPath)
-        self.chatListTableViewDataSource.removeMessageAt(indexPath)
+        self.chatListTableViewDataSource.removeChatAt(indexPath)
     }
 }

@@ -27,13 +27,15 @@ final class ChatInteractor {
     private var chat: Chat
     private var isChatChanged = false
     private let delegate: IChatListInteractorDelegate
+    private let chatIndex: Int
     weak var presenter: IChatInteractorOuter?
 
     // MARK: - Init
 
-    init(chat: Chat, delegate: IChatListInteractorDelegate) {
+    init(chat: Chat, delegate: IChatListInteractorDelegate, chatIndex: Int) {
         self.chat = chat
         self.delegate = delegate
+        self.chatIndex = chatIndex
     }
 }
 
@@ -61,6 +63,7 @@ extension ChatInteractor: IChatInteractor {
                               time: time,
                               isOutgoing: isOutgoing)
         self.chat.messages.append(message)
+        CoreDataManager.sharedInstance.appendMessage(message, atChatIndex: self.chatIndex)
         self.isChatChanged = true
         self.presenter?.appendMessage(message, atRow: self.chat.messages.count)
     }

@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17192" systemVersion="20C69" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <elements/>
+    <entity name="CoreDataChat" representedClassName="CoreDataChat" syncable="YES">
+        <attribute name="id" attributeType="String"/>
+        <relationship name="relationship" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CoreDataMessage" inverseName="relationship" inverseEntity="CoreDataMessage"/>
+    </entity>
+    <entity name="CoreDataMessage" representedClassName="CoreDataMessage" syncable="YES">
+        <attribute name="isOutgoing" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="text" attributeType="String"/>
+        <attribute name="time" attributeType="String"/>
+        <relationship name="relationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CoreDataChat" inverseName="relationship" inverseEntity="CoreDataChat"/>
+    </entity>
+    <elements>
+        <element name="CoreDataChat" positionX="-54" positionY="-9" width="128" height="59"/>
+        <element name="CoreDataMessage" positionX="-36" positionY="18" width="128" height="89"/>
+    </elements>
 </model>

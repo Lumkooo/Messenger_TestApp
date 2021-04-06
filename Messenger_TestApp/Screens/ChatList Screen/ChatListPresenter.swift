@@ -48,16 +48,16 @@ extension ChatListPresenter: IChatListPresenter {
 }
 
 extension ChatListPresenter: IChatListInteractorOuter {
+    func goToChat(delegate: IChatListInteractorDelegate, chatIndex: Int) {
+        self.router.showChatVC(delegate: delegate, chatIndex: chatIndex)
+    }
+
+    func goToChat(_ chat: Chat, delegate: IChatListInteractorDelegate, chatIndex: Int) {
+        self.router.showChatVC(chat, delegate: delegate, chatIndex: chatIndex)
+    }
+
     func showChats(_ chats: [Chat]) {
         self.ui?.showChats(chats)
-    }
-
-    func goToChat(_ chat: Chat, delegate: IChatListInteractorDelegate) {
-        self.router.showChatVC(chat, delegate: delegate)
-    }
-
-    func goToChat(delegate: IChatListInteractorDelegate) {
-        self.router.showChatVC(delegate: delegate)
     }
 
     func appendChat(_ chat: Chat) {

@@ -23,7 +23,7 @@ final class ChatListTableViewDataSource: NSObject {
         self.chats.insert(chat, at: 0)
     }
 
-    func removeMessageAt(_ indexPath: IndexPath) {
+    func removeChatAt(_ indexPath: IndexPath) {
         if self.chats.count > indexPath.row {
             self.chats.remove(at: indexPath.row)
         }

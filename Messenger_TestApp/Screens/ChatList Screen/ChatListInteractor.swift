@@ -17,8 +17,8 @@ protocol IChatListInteractor {
 protocol IChatListInteractorOuter: AnyObject {
     func showChats(_ chats: [Chat])
     func appendChat(_ chat: Chat)
-    func goToChat(delegate: IChatListInteractorDelegate)
-    func goToChat(_ chat: Chat, delegate: IChatListInteractorDelegate)
+    func goToChat(delegate: IChatListInteractorDelegate, chatIndex: Int)
+    func goToChat(_ chat: Chat, delegate: IChatListInteractorDelegate, chatIndex: Int)
     func removeChatFrom(index: Int)
 }
 
@@ -31,7 +31,7 @@ final class ChatListInteractor {
     // MARK: - Properties
 
     weak var presenter: IChatListInteractorOuter?
-    private var chats: [Chat] = []
+//    private var chats: [Chat] = []
 
 }
 
@@ -39,32 +39,34 @@ final class ChatListInteractor {
 
 extension ChatListInteractor: IChatListInteractor {
     func loadInitData() {
-        self.chats.append(Chat(messages: [Message(text: "Hello!", time: "12:00", isOutgoing: true)]))
-        self.chats.append(Chat(messages: [Message(text: "Goodbye!", time: "11:45", isOutgoing: true)]))
-        self.chats.append(Chat(messages: [Message(text: "Okay!", time: "12:55", isOutgoing: true),
-                                          Message(text: "Lhm!", time: "12:55", isOutgoing: true),
-                                          Message(text: "HHHH!", time: "12:55", isOutgoing: true),
-                                          Message(text: "Zzzzzzzzz...!", time: "12:55", isOutgoing: false)]))
-        self.presenter?.showChats(self.chats)
+        let chats = self.getChats()
+        self.presenter?.showChats(chats)
     }
 
     func didSelectCellAt(indexPath: IndexPath) {
-        if self.chats.count > indexPath.row {
-            let chat = self.chats[indexPath.row]
-            self.presenter?.goToChat(chat, delegate: self)
+        let chats = self.getChats()
+        print("TAPPING")
+        if chats.count > indexPath.row {
+            let chat = chats[indexPath.row]
+            print("SHIT!")
+            chat.messages.forEach { print("WOW!:", $0.text)}
+            self.presenter?.goToChat(chat, delegate: self, chatIndex: indexPath.row)
         }
     }
 
     func addChatTapped() {
-        self.presenter?.goToChat(delegate: self)
+        let chatCount = CoreDataManager.sharedInstance.getChats().count
+        self.presenter?.goToChat(delegate: self, chatIndex: chatCount)
     }
 
     func removeChatAt(_ indexPath: IndexPath) {
-        if self.chats.count > indexPath.row {
-            self.chats.remove(at: indexPath.row)
-            if self.chats.isEmpty {
+        var chats = self.getChats()
+        if chats.count > indexPath.row {
+            let _ = CoreDataManager.sharedInstance.removeChat(atIndex: indexPath.row)
+            chats.remove(at: indexPath.row)
+            if chats.isEmpty {
                 // Покажем текст, уведомляющий о том, что нет чатов
-                self.presenter?.showChats(self.chats)
+                self.presenter?.showChats(chats)
             }
         }
     }
@@ -75,50 +77,59 @@ extension ChatListInteractor: IChatListInteractor {
 extension ChatListInteractor: IChatListInteractorDelegate {
     func saveChat(_ chat: Chat, isChatChaged: Bool) {
 
+        let chats = self.getChats()
+        print("CHAT.COUNT!", chats.count)
         if self.isChatExisted(chat) {
-            let indexOfChat = self.chats.firstIndex { (existingChat) -> Bool in
+            let indexOfChat = chats.firstIndex { (existingChat) -> Bool in
                 existingChat.id == chat.id
             }
             guard let index = indexOfChat else {
                 return
             }
-
             if isChatChaged {
                 // Чат был изменен
                 if index == 0 {
                     // Чат и так был первый, не надо ничего с ним делать
                     return
                 }
-                let chat = self.chats.remove(at: index)
+                guard let chat = CoreDataManager.sharedInstance.removeChat(atIndex: index) else {
+                    assertionFailure("oops... Erorr!")
+                    return
+                }
+                print("WTF!")
                 self.presenter?.removeChatFrom(index: index)
                 self.insertChatAtFirstPosition(chat)
-            } else {
-                // Чат не был изменен
             }
         } else {
-            if self.chats.isEmpty {
-                // Если в данный момент чатов нет
-                // то надо добавить текущий и убрать с экрана текст,
-                // уведомляющий о том
-                // что текстов не было
-                self.chats.append(chat)
-                self.presenter?.showChats(self.chats)
-            } else {
-                self.insertChatAtFirstPosition(chat)
-            }
+            print("WTF!")
+            self.insertChatAtFirstPosition(chat)
         }
     }
 }
 
 private extension ChatListInteractor {
     func isChatExisted(_ chat: Chat) -> Bool {
-        self.chats.contains(where: { (existingChat) -> Bool in
+        let chats = self.getChats()
+        return chats.contains(where: { (existingChat) -> Bool in
             existingChat.id == chat.id
         })
     }
 
     func insertChatAtFirstPosition(_ chat: Chat) {
-        self.chats.insert(chat, at: 0)
-        self.presenter?.appendChat(chat)
+        if self.getChats().isEmpty {
+            self.createChatAtFirstPosition(chat)
+        } else {
+            CoreDataManager.sharedInstance.insertChat(chat, atPosition: 0)
+            CoreDataManager.sharedInstance.removeChat(atIndex: 2)
+            self.presenter?.appendChat(chat)
+        }
+    }
+
+    func createChatAtFirstPosition(_ chat: Chat) {
+        self.presenter?.showChats([chat])
+    }
+
+    func getChats() -> [Chat] {
+        return CoreDataManager.sharedInstance.getChats()
     }
 }
